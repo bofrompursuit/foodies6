@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodies For Foodies - Your Savory Story</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: white;
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #ff6b4a;
+            font-weight: 700;
+        }
+
+        .logo p {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b4a;
+        }
+
+        .sign-in-btn {
+            background: #ff6b4a;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .sign-in-btn:hover {
+            background: #ff5533;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 90vh;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%234a3728" width="1200" height="800"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 3rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(74, 55, 40, 0.8) 0%, rgba(74, 55, 40, 0.6) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ff6b4a;
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .category-badge::before {
+            content: '⭐';
+        }
+
+        .hero h2 {
+            font-size: 5rem;
+            color: white;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h2 span {
+            font-style: italic;
+            display: block;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn-primary {
+            background: #ff6b4a;
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: #ff5533;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 74, 0.4);
+        }
+
+        .btn-primary::after {
+            content: '→';
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #333;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 3rem;
+            background: #f8f9fa;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon-orange { background: #fff3ed; }
+        .icon-green { background: #e8f5e9; }
+        .icon-blue { background: #e3f2fd; }
+        .icon-red { background: #ffebee; }
+        .icon-purple { background: #f3e5f5; }
+        .icon-pink { background: #fce4ec; }
+        .icon-yellow { background: #fffde7; }
+        .icon-teal { background: #e0f2f1; }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 3rem;
+            background: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 3.5rem;
+            color: #ff6b4a;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .cta p {
+            font-size: 1.25rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                height: auto;
+                padding: 3rem 1.5rem;
+            }
+
+            .hero h2 {
+                font-size: 3rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .features {
+                padding: 3rem 1.5rem;
+            }
+
+            .cta h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <h1>Foodies For Foodies</h1>
+            <p>YOUR SAVORY STORY</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#fridge">Fridge</a></li>
+            <li><a href="#guides">Guides</a></li>
+            <li><a href="#groups">Groups</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#travel">Travel</a></li>
+        </ul>
+        <button class="sign-in-btn">Sign In</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="category-badge">CATEGORY OF THE WEEK</div>
+            <h2>
+                Moo!
+                <span>The Art of Beef</span>
+                <span>& Dairy</span>
+            </h2>
+            <p>Discover the richest flavors, master the perfect sear, and explore creamy delights in this week's featured collection.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary">Start Cooking</button>
+                <button class="btn-secondary">Join an Event</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon icon-orange">🧃</div>
+                <h3>What's in My Fridge?</h3>
+                <p>AI-powered recipe generator</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-green">👥</div>
+                <h3>Cooking & Groups</h3>
+                <p>Guides and collaborative spaces</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-blue">✅</div>
+                <h3>The Daily Bite</h3>
+                <p>Member-only polls & challenges</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-red">🎫</div>
+                <h3>Foodie Rewards</h3>
+                <p>Exclusive local deals</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-purple">🎙️</div>
+                <h3>Podcast</h3>
+                <p>Listen to foodie stories</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-pink">📅</div>
+                <h3>Meetups & Events</h3>
+                <p>Join local gatherings</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-yellow">✏️</div>
+                <h3>Create Content</h3>
+                <p>Share your culinary journey</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-teal">✈️</div>
+                <h3>Travel</h3>
+                <p>Foodie destinations</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Join 10,000+ Foodies</h2>
+        <p>Share your recipes, find travel buddies, and explore the culinary world</p>
+        <button class="btn-primary" style="margin: 0 auto;">Get Started Today</button>
+    </section>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Feature cards animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
