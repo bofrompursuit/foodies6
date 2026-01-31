@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Daily Bite - Foodies For Foodies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #ff6b4a;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #ff6b4a;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .hero {
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #1976d2;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .poll-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .poll-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+
+        .poll-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .poll-time {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .poll-question {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .poll-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .poll-option {
+            background: transparent;
+            border: 2px solid #e0e0e0;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .poll-option:hover {
+            border-color: #1976d2;
+            background: #f0f7ff;
+        }
+
+        .poll-option.selected {
+            background: #1976d2;
+            color: white;
+            border-color: #1976d2;
+        }
+
+        .poll-percentage {
+            display: inline-block;
+            background: rgba(25, 118, 210, 0.2);
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+
+        .challenge-card {
+            background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .challenge-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .challenge-desc {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .challenge-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .join-challenge-btn {
+            background: white;
+            color: #1976d2;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            width: 100%;
+        }
+
+        .join-challenge-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .join-challenge-btn.joined {
+            background: #4caf50;
+            color: white;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1976d2;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .hero { padding: 2rem 1.5rem; }
+            .hero h1 { font-size: 2rem; }
+            .container { padding: 1.5rem; }
+            .challenge-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <h1 class="logo">Foodies</h1>
+        </div>
+        <a href="index.html" class="back-btn">← Back Home</a>
+    </nav>
+
+    <section class="hero">
+        <h1>✅ The Daily Bite</h1>
+        <p>Engage with polls, take on challenges, and connect with the community</p>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">Today's Poll</h2>
+        <div class="poll-card" id="dailyPoll"></div>
+
+        <h2 class="section-title">Active Challenges</h2>
+        <div id="challengesContainer"></div>
+    </div>
+
+    <script>
+        const polls = [
+            {
+                question: 'What is your favorite cooking method?',
+                options: ['Grilling', 'Baking', 'Stir Frying', 'Slow Cooking'],
+                votes: [245, 189, 312, 156]
+            },
+            {
+                question: 'Most essential kitchen tool?',
+                options: ['Sharp Knife', 'Cast Iron Pan', 'Wooden Spoon', 'Blender'],
+                votes: [289, 201, 145, 198]
+            },
+            {
+                question: 'Best cuisine for beginners?',
+                options: ['Italian', 'Asian', 'Mexican', 'French'],
+                votes: [356, 287, 234, 145]
+            }
+        ];
+
+        const challenges = [
+            {
+                title: '🥗 Healthy Week Challenge',
+                desc: 'Cook 5 healthy meals in 7 days using whole ingredients',
+                badge: 'This Week',
+                participants: 1234,
+                completed: 567,
+                reward: '50 points'
+            },
+            {
+                title: '🍳 Breakfast Master',
+                desc: 'Create your best breakfast dish and share with the community',
+                badge: 'This Week',
+                participants: 892,
+                completed: 312,
+                reward: '75 points'
+            },
+            {
+                title: '🌍 International Dish',
+                desc: 'Cook a traditional dish from a country you\'ve never tried',
+                badge: 'This Week',
+                participants: 756,
+                completed: 298,
+                reward: '100 points'
+            }
+        ];
+
+        function getTodaysPoll() {
+            const day = new Date().getDate();
+            return polls[day % polls.length];
+        }
+
+        function renderPoll() {
+            const poll = getTodaysPoll();
+            const totalVotes = poll.votes.reduce((a, b) => a + b, 0);
+            const selectedAnswer = localStorage.getItem('pollAnswer_' + new Date().toDateString());
+
+            let html = `
+                <div class="poll-header">
+                    <div>
+                        <div class="poll-title">Today's Poll</div>
+                        <div class="poll-time">⏰ Ends in 12 hours</div>
+                    </div>
+                </div>
+                <div class="poll-question">${poll.question}</div>
+                <div class="poll-options">
+            `;
+
+            poll.options.forEach((option, idx) => {
+                const percentage = Math.round((poll.votes[idx] / totalVotes) * 100);
+                const isSelected = selectedAnswer === option;
+                html += `
+                    <button class="poll-option ${isSelected ? 'selected' : ''}" onclick="votePoll('${option}', ${idx})">
+                        <strong>${option}</strong> <span class="poll-percentage">${percentage}% (${poll.votes[idx]})</span>
+                    </button>
+                `;
+            });
+
+            html += '</div>';
+            document.getElementById('dailyPoll').innerHTML = html;
+        }
+
+        function votePoll(answer, idx) {
+            const dateKey = 'pollAnswer_' + new Date().toDateString();
+            localStorage.setItem(dateKey, answer);
+            renderPoll();
+        }
+
+        function renderChallenges() {
+            const container = document.getElementById('challengesContainer');
+            const joinedChallenges = JSON.parse(localStorage.getItem('joinedChallenges')) || [];
+
+            container.innerHTML = challenges.map((challenge, idx) => {
+                const isJoined = joinedChallenges.includes(idx);
+                return `
+                    <div class="challenge-card">
+                        <div class="challenge-badge">${challenge.badge}</div>
+                        <div class="challenge-title">${challenge.title}</div>
+                        <div class="challenge-desc">${challenge.desc}</div>
+                        <div class="challenge-stats">
+                            <div class="stat">
+                                <div class="stat-number">${challenge.participants}</div>
+                                <div class="stat-label">Participants</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">${challenge.completed}</div>
+                                <div class="stat-label">Completed</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">+${challenge.reward}</div>
+                                <div class="stat-label">Reward</div>
+                            </div>
+                        </div>
+                        <button class="join-challenge-btn ${isJoined ? 'joined' : ''}" onclick="toggleChallenge(${idx})">
+                            ${isJoined ? '✓ Joined' : 'Join Challenge'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleChallenge(idx) {
+            let joined = JSON.parse(localStorage.getItem('joinedChallenges')) || [];
+            if (joined.includes(idx)) {
+                joined = joined.filter(i => i !== idx);
+            } else {
+                joined.push(idx);
+            }
+            localStorage.setItem('joinedChallenges', JSON.stringify(joined));
+            renderChallenges();
+        }
+
+        renderPoll();
+        renderChallenges();
+    </script>
+</body>
+</html>

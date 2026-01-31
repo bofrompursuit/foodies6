@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie Podcast - Foodies For Foodies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            color: #333;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #ff6b4a;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #ff6b4a;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .hero {
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #999;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #ff6b4a;
+            border-bottom-color: #ff6b4a;
+        }
+
+        .episode-card {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .episode-thumbnail {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .episode-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .episode-header {
+            margin-bottom: 1rem;
+        }
+
+        .episode-number {
+            color: #ff6b4a;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .episode-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .episode-guest {
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        .episode-description {
+            color: #bbb;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .episode-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .play-btn {
+            background: #ff6b4a;
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .play-btn:hover {
+            background: #ff5533;
+            transform: scale(1.1);
+        }
+
+        .like-btn {
+            background: transparent;
+            border: 2px solid #ff6b4a;
+            color: #ff6b4a;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .like-btn:hover,
+        .like-btn.liked {
+            background: #ff6b4a;
+            color: white;
+        }
+
+        .featured-section {
+            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: white;
+        }
+
+        .featured-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-section p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .subscribe-btn {
+            background: white;
+            color: #ff6b4a;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .subscribe-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ff6b4a;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .hero { padding: 2rem 1.5rem; }
+            .hero h1 { font-size: 2rem; }
+            .container { padding: 1.5rem; }
+            .episode-card {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            .episode-thumbnail {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <h1 class="logo">Foodies</h1>
+        </div>
+        <a href="index.html" class="back-btn">← Back Home</a>
+    </nav>
+
+    <section class="hero">
+        <h1>🎙️ Foodie Stories Podcast</h1>
+        <p>Listen to inspiring culinary journeys and expert interviews</p>
+    </section>
+
+    <div class="container">
+        <div class="featured-section">
+            <h2>🎧 Subscribe & Get Notified</h2>
+            <p>New episodes every Tuesday at 10 AM</p>
+            <button class="subscribe-btn" onclick="toggleSubscribe()">
+                <span id="subscribeText">✓ Subscribed</span>
+            </button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('latest')">Latest Episodes</button>
+            <button class="tab-btn" onclick="showTab('trending')">Trending</button>
+            <button class="tab-btn" onclick="showTab('saved')">Saved</button>
+        </div>
+
+        <div id="latest-tab">
+            <h2 class="section-title">Latest Episodes</h2>
+            <div id="latestEpisodes"></div>
+        </div>
+
+        <div id="trending-tab" style="display: none;">
+            <h2 class="section-title">Trending Episodes</h2>
+            <div id="trendingEpisodes"></div>
+        </div>
+
+        <div id="saved-tab" style="display: none;">
+            <h2 class="section-title">Your Saved Episodes</h2>
+            <div id="savedEpisodes"></div>
+        </div>
+    </div>
+
+    <script>
+        const episodes = [
+            {
+                number: 'EP 145',
+                title: 'The Art of French Cooking',
+                guest: 'Chef Marie Laurent',
+                description: 'Explore the classic techniques and philosophy behind French cuisine. Chef Marie shares her 30 years of experience in Michelin-starred kitchens.',
+                duration: '45:32',
+                date: 'Jan 28, 2026',
+                emoji: '🇫🇷',
+                likes: 234
+            },
+            {
+                number: 'EP 144',
+                title: 'Zero-Waste Cooking',
+                guest: 'Sustainability Expert James',
+                description: 'Learn how to cook deliciously while reducing food waste. James discusses practical strategies for sustainable kitchen practices.',
+                duration: '38:15',
+                date: 'Jan 21, 2026',
+                emoji: '♻️',
+                likes: 189
+            },
+            {
+                number: 'EP 143',
+                title: 'Street Food Around the World',
+                guest: 'Food Blogger Sofia',
+                description: 'From Bangkok to NYC, Sofia takes us on a culinary tour of street food. Discover hidden gems and authentic flavors.',
+                duration: '52:44',
+                date: 'Jan 14, 2026',
+                emoji: '🌍',
+                likes: 312
+            },
+            {
+                number: 'EP 142',
+                title: 'Homemade Pasta Mastery',
+                guest: 'Pasta Artisan Marco',
+                description: 'Master the craft of making fresh pasta at home. Marco walks through different dough recipes and traditional shapes.',
+                duration: '41:20',
+                date: 'Jan 7, 2026',
+                emoji: '🍝',
+                likes: 267
+            },
+            {
+                number: 'EP 141',
+                title: 'Plant-Based Cooking',
+                guest: 'Chef Lisa Chen',
+                description: 'Discover how to create flavorful, satisfying meals without animal products. Chef Lisa shares her favorite recipes.',
+                duration: '35:50',
+                date: 'Dec 31, 2025',
+                emoji: '🌱',
+                likes: 156
+            },
+            {
+                number: 'EP 140',
+                title: 'Coffee Culture & Origins',
+                guest: 'Coffee Roaster Tom',
+                description: 'Explore the fascinating world of coffee from bean to cup. Tom explains different brewing methods and flavor profiles.',
+                duration: '33:10',
+                date: 'Dec 24, 2025',
+                emoji: '☕',
+                likes: 198
+            }
+        ];
+
+        let likedEpisodes = JSON.parse(localStorage.getItem('likedPodcasts')) || [];
+        let savedEpisodes = JSON.parse(localStorage.getItem('savedPodcasts')) || [];
+        let isSubscribed = localStorage.getItem('podcastSubscribed') === 'true';
+
+        function renderEpisodes(containerId, episodeList) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = episodeList.map((ep, idx) => {
+                const isLiked = likedEpisodes.includes(ep.number);
+                const isSaved = savedEpisodes.includes(ep.number);
+                return `
+                    <div class="episode-card">
+                        <div class="episode-thumbnail">${ep.emoji}</div>
+                        <div class="episode-content">
+                            <div class="episode-header">
+                                <div class="episode-number">${ep.number}</div>
+                                <div class="episode-title">${ep.title}</div>
+                                <div class="episode-guest">with ${ep.guest}</div>
+                            </div>
+                            <p class="episode-description">${ep.description}</p>
+                            <div class="episode-meta">
+                                <span>⏱️ ${ep.duration}</span>
+                                <span>📅 ${ep.date}</span>
+                                <span>❤️ ${ep.likes} likes</span>
+                            </div>
+                            <div class="controls">
+                                <button class="play-btn" onclick="playEpisode('${ep.number}')">▶</button>
+                                <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${ep.number}')">
+                                    ${isLiked ? '❤️ Liked' : '🤍 Like'}
+                                </button>
+                                <button class="like-btn ${isSaved ? 'liked' : ''}" onclick="toggleSave('${ep.number}')">
+                                    ${isSaved ? '⭐ Saved' : '☆ Save'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showTab(tab) {
+            document.querySelectorAll('[id$="-tab"]').forEach(el => el.style.display = 'none');
+            document.getElementById(tab + '-tab').style.display = 'block';
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (tab === 'trending') {
+                const sorted = [...episodes].sort((a, b) => b.likes - a.likes);
+                renderEpisodes('trendingEpisodes', sorted);
+            } else if (tab === 'saved') {
+                const saved = episodes.filter(ep => savedEpisodes.includes(ep.number));
+                renderEpisodes('savedEpisodes', saved.length > 0 ? saved : []);
+                if (saved.length === 0) {
+                    document.getElementById('savedEpisodes').innerHTML = '<p style="text-align: center; color: #999; padding: 2rem;">No saved episodes yet. Save your favorites!</p>';
+                }
+            }
+        }
+
+        function toggleLike(episodeNumber) {
+            if (likedEpisodes.includes(episodeNumber)) {
+                likedEpisodes = likedEpisodes.filter(e => e !== episodeNumber);
+            } else {
+                likedEpisodes.push(episodeNumber);
+            }
+            localStorage.setItem('likedPodcasts', JSON.stringify(likedEpisodes));
+            renderEpisodes('latestEpisodes', episodes);
+        }
+
+        function toggleSave(episodeNumber) {
+            if (savedEpisodes.includes(episodeNumber)) {
+                savedEpisodes = savedEpisodes.filter(e => e !== episodeNumber);
+            } else {
+                savedEpisodes.push(episodeNumber);
+            }
+            localStorage.setItem('savedPodcasts', JSON.stringify(savedEpisodes));
+            renderEpisodes('latestEpisodes', episodes);
+        }
+
+        function toggleSubscribe() {
+            isSubscribed = !isSubscribed;
+            localStorage.setItem('podcastSubscribed', isSubscribed);
+            document.getElementById('subscribeText').textContent = isSubscribed ? '✓ Subscribed' : 'Subscribe';
+        }
+
+        function playEpisode(episodeNumber) {
+            alert(`Now playing: ${episodeNumber}`);
+        }
+
+        renderEpisodes('latestEpisodes', episodes);
+        document.getElementById('subscribeText').textContent = isSubscribed ? '✓ Subscribed' : 'Subscribe';
+    </script>
+</body>
+</html>

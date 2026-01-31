@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie Travel - Foodies For Foodies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #ff6b4a;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #ff6b4a;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .hero {
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #00695c;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #00695c;
+            color: white;
+            border-color: #00695c;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .destination-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #00695c 0%, #00897b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .destination-content {
+            padding: 1.5rem;
+        }
+
+        .destination-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+
+        .destination-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .destination-rating {
+            background: #fff8e1;
+            color: #f57f17;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .destination-type {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .destination-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .cuisine-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cuisine-tag {
+            background: #e0f2f1;
+            color: #00695c;
+            padding: 0.35rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .destination-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .budget {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .plan-trip-btn {
+            background: #00695c;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .plan-trip-btn:hover {
+            background: #004d40;
+            transform: translateY(-2px);
+        }
+
+        .plan-trip-btn.planned {
+            background: #4caf50;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close {
+            float: right;
+            background: transparent;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .modal h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-form input,
+        .modal-form select {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .modal-form button {
+            background: #00695c;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .modal-form button:hover {
+            background: #004d40;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .hero { padding: 2rem 1.5rem; }
+            .hero h1 { font-size: 2rem; }
+            .container { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <h1 class="logo">Foodies</h1>
+        </div>
+        <a href="index.html" class="back-btn">← Back Home</a>
+    </nav>
+
+    <section class="hero">
+        <h1>✈️ Foodie Travel Destinations</h1>
+        <p>Discover world-class culinary destinations and plan your next food adventure</p>
+    </section>
+
+    <div class="container">
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterDestinations('all')">All Destinations</button>
+            <button class="filter-btn" onclick="filterDestinations('asia')">🌏 Asia</button>
+            <button class="filter-btn" onclick="filterDestinations('europe')">🌍 Europe</button>
+            <button class="filter-btn" onclick="filterDestinations('americas')">🌎 Americas</button>
+        </div>
+
+        <div class="destinations-grid" id="destinationsGrid"></div>
+    </div>
+
+    <!-- Trip Planning Modal -->
+    <div class="modal" id="tripModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2>Plan Your Trip</h2>
+            <form class="modal-form" onsubmit="submitTrip(event)">
+                <input type="text" id="travelName" placeholder="Destination Name" required>
+                <input type="date" id="travelDate" required>
+                <select id="travelDuration" required>
+                    <option value="">Select trip duration</option>
+                    <option value="3">3 days</option>
+                    <option value="5">5 days</option>
+                    <option value="7">1 week</option>
+                    <option value="10">10 days</option>
+                </select>
+                <input type="email" id="travelEmail" placeholder="Email for confirmation" required>
+                <button type="submit">Plan Trip</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const destinations = [
+            {
+                emoji: '🇯🇵',
+                name: 'Tokyo, Japan',
+                region: 'asia',
+                type: 'Street Food & Fine Dining',
+                rating: '4.9',
+                description: 'Experience cutting-edge Japanese cuisine from Michelin-starred restaurants to vibrant street food.',
+                cuisines: ['Sushi', 'Ramen', 'Tempura', 'Tonkatsu'],
+                budget: '$100-200/day',
+                highlights: '🍣 Tsukiji Market, 🍜 Shibuya Ramen Alley, 🌶️ Izakayas'
+            },
+            {
+                emoji: '🇹🇭',
+                name: 'Bangkok, Thailand',
+                region: 'asia',
+                type: 'Street Food Paradise',
+                rating: '4.8',
+                description: 'Explore Bangkok\'s legendary street food scene and authentic Thai culinary traditions.',
+                cuisines: ['Pad Thai', 'Tom Yum', 'Green Curry', 'Satay'],
+                budget: '$30-60/day',
+                highlights: '🥘 Chatuchak Market, 🌶️ Thaipusam Temple, 🍲 Chinatown'
+            },
+            {
+                emoji: '🇮🇹',
+                name: 'Bologna, Italy',
+                region: 'europe',
+                type: 'Culinary Heritage',
+                rating: '4.7',
+                description: 'The heart of Italian gastronomy - pasta making, Parmigiano-Reggiano, and traditional recipes.',
+                cuisines: ['Pasta', 'Ragù', 'Parmigiano', 'Balsamico'],
+                budget: '$70-120/day',
+                highlights: '🍝 Pasta Classes, 🧀 Dairy Tours, 🍷 Wine Tasting'
+            },
+            {
+                emoji: '🇫🇷',
+                name: 'Paris, France',
+                region: 'europe',
+                type: 'Fine Dining',
+                rating: '4.9',
+                description: 'The culinary capital of the world with legendary Michelin restaurants and charming bistros.',
+                cuisines: ['French', 'Coq au Vin', 'Croissants', 'Cheese'],
+                budget: '$150-250/day',
+                highlights: '⭐ Michelin Restaurants, 🥐 Patisseries, 🍷 Wine Tours'
+            },
+            {
+                emoji: '🇵🇪',
+                name: 'Lima, Peru',
+                region: 'americas',
+                type: 'Fusion & Innovation',
+                rating: '4.8',
+                description: 'Modern Peruvian cuisine blending traditional Incan ingredients with contemporary techniques.',
+                cuisines: ['Ceviche', 'Causa', 'Lomo Saltado', 'Tiradito'],
+                budget: '$60-100/day',
+                highlights: '🍗 Chicha Bars, 🥒 Cevichería, 📚 Food Museums'
+            },
+            {
+                emoji: '🇹🇷',
+                name: 'Istanbul, Turkey',
+                region: 'europe',
+                type: 'Street Food & Spices',
+                rating: '4.7',
+                description: 'Blend of Asian and European flavors in this historic city\'s bustling food markets.',
+                cuisines: ['Kebab', 'Meze', 'Baklava', 'Turkish Coffee'],
+                budget: '$40-80/day',
+                highlights: '🏪 Grand Bazaar, 🥘 Galata Food Tours, 🫖 Çay Houses'
+            }
+        ];
+
+        let plannedTrips = JSON.parse(localStorage.getItem('plannedTrips')) || [];
+        let currentTripName = '';
+
+        function renderDestinations(filter = 'all') {
+            const grid = document.getElementById('destinationsGrid');
+            const filtered = filter === 'all' ? destinations : destinations.filter(d => d.region === filter);
+
+            grid.innerHTML = filtered.map(dest => {
+                const isPlanned = plannedTrips.some(t => t.destination === dest.name);
+                return `
+                    <div class="destination-card">
+                        <div class="destination-image">${dest.emoji}</div>
+                        <div class="destination-content">
+                            <div class="destination-header">
+                                <div class="destination-name">${dest.name}</div>
+                                <div class="destination-rating">⭐ ${dest.rating}</div>
+                            </div>
+                            <div class="destination-type">${dest.type}</div>
+                            <p class="destination-description">${dest.description}</p>
+                            <div class="cuisine-tags">
+                                ${dest.cuisines.map(c => `<span class="cuisine-tag">${c}</span>`).join('')}
+                            </div>
+                            <div class="destination-footer">
+                                <span class="budget">💰 ${dest.budget}</span>
+                                <button class="plan-trip-btn ${isPlanned ? 'planned' : ''}" onclick="openTripModal('${dest.name}')">
+                                    ${isPlanned ? '✓ Planned' : 'Plan Trip'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterDestinations(region) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderDestinations(region);
+        }
+
+        function openTripModal(name) {
+            currentTripName = name;
+            document.getElementById('tripModal').classList.add('active');
+            document.getElementById('travelName').value = name;
+        }
+
+        function closeModal() {
+            document.getElementById('tripModal').classList.remove('active');
+        }
+
+        function submitTrip(e) {
+            e.preventDefault();
+            const trip = {
+                destination: document.getElementById('travelName').value,
+                date: document.getElementById('travelDate').value,
+                duration: document.getElementById('travelDuration').value + ' days',
+                email: document.getElementById('travelEmail').value
+            };
+
+            plannedTrips.push(trip);
+            localStorage.setItem('plannedTrips', JSON.stringify(plannedTrips));
+            closeModal();
+            alert('Trip planned! Check your email for itinerary suggestions.');
+            renderDestinations();
+        }
+
+        renderDestinations();
+    </script>
+</body>
+</html>

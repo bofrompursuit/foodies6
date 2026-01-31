@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking Guides & Groups - Foodies For Foodies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #ff6b4a;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #ff6b4a;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .hero {
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #2e7d32;
+            border-bottom-color: #2e7d32;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .guide-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .guide-content {
+            padding: 1.5rem;
+        }
+
+        .guide-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .guide-meta {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-content p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .learn-btn {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .learn-btn:hover {
+            background: #1b5e20;
+        }
+
+        .group-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .group-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .group-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #2e7d32;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .group-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .group-members {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .join-group-btn {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .join-group-btn:hover {
+            background: #1b5e20;
+        }
+
+        .join-group-btn.joined {
+            background: #999;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .hero { padding: 2rem 1.5rem; }
+            .hero h1 { font-size: 2rem; }
+            .container { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <h1>Foodies</h1>
+        </a>
+        <a href="index.html" class="back-btn">← Back Home</a>
+    </nav>
+
+    <section class="hero">
+        <h1>👥 Cooking Guides & Groups</h1>
+        <p>Learn from experts and join passionate food communities</p>
+    </section>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('guides')">📚 Guides</button>
+            <button class="tab-btn" onclick="showTab('groups')">👫 Groups</button>
+        </div>
+
+        <div id="guides-tab">
+            <div class="guide-grid" id="guidesGrid"></div>
+        </div>
+
+        <div id="groups-tab" style="display: none;">
+            <div id="groupsGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        const guides = [
+            { emoji: '🔪', title: 'Knife Skills Masterclass', difficulty: 'Beginner', duration: '45 min', desc: 'Learn essential knife techniques' },
+            { emoji: '🍳', title: 'Perfect Omelette Technique', difficulty: 'Beginner', duration: '30 min', desc: 'Master the art of the perfect omelette' },
+            { emoji: '🥩', title: 'Steak Perfection', difficulty: 'Intermediate', duration: '60 min', desc: 'Cook restaurant-quality steaks' },
+            { emoji: '🍝', title: 'Homemade Pasta', difficulty: 'Intermediate', duration: '90 min', desc: 'Make fresh pasta from scratch' },
+            { emoji: '🧂', title: 'Seasoning & Flavoring', difficulty: 'Beginner', duration: '40 min', desc: 'Balance flavors like a pro' },
+            { emoji: '🍲', title: 'Soup Stock Basics', difficulty: 'Beginner', duration: '120 min', desc: 'Create rich, flavorful stocks' }
+        ];
+
+        const groups = [
+            { emoji: '🍕', name: 'Pizza Enthusiasts', members: 1234, desc: 'For pizza lovers and makers worldwide' },
+            { emoji: '🥗', name: 'Healthy Eating', members: 2156, desc: 'Share nutritious recipes and tips' },
+            { emoji: '🍜', name: 'Asian Cuisine', members: 1876, desc: 'Explore flavors of Asia' },
+            { emoji: '🍰', name: 'Baking & Pastry', members: 3421, desc: 'Sweet creations and baking techniques' },
+            { emoji: '🌱', name: 'Vegan Cooking', members: 2345, desc: 'Plant-based culinary adventures' },
+            { emoji: '🧆', name: 'Mediterranean Foods', members: 1567, desc: 'Mediterranean diet and recipes' }
+        ];
+
+        function showTab(tab) {
+            document.querySelectorAll('[id$="-tab"]').forEach(el => el.style.display = 'none');
+            document.getElementById(tab + '-tab').style.display = 'block';
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function renderGuides() {
+            const grid = document.getElementById('guidesGrid');
+            grid.innerHTML = guides.map(guide => `
+                <div class="guide-card">
+                    <div class="guide-image">${guide.emoji}</div>
+                    <div class="guide-content">
+                        <h3>${guide.title}</h3>
+                        <div class="guide-meta">${guide.difficulty} • ${guide.duration}</div>
+                        <p>${guide.desc}</p>
+                        <button class="learn-btn">Learn Now</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderGroups() {
+            const grid = document.getElementById('groupsGrid');
+            const joined = JSON.parse(localStorage.getItem('joinedGroups')) || [];
+            grid.innerHTML = groups.map((group, idx) => `
+                <div class="group-card">
+                    <div class="group-header">
+                        <div class="group-avatar">${group.emoji}</div>
+                        <div class="group-info">
+                            <h3>${group.name}</h3>
+                            <div class="group-members">👥 ${group.members} members</div>
+                        </div>
+                    </div>
+                    <p>${group.desc}</p>
+                    <button class="join-group-btn ${joined.includes(idx) ? 'joined' : ''}" onclick="toggleGroup(${idx})">
+                        ${joined.includes(idx) ? '✓ Joined' : 'Join Group'}
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleGroup(idx) {
+            let joined = JSON.parse(localStorage.getItem('joinedGroups')) || [];
+            if (joined.includes(idx)) {
+                joined = joined.filter(i => i !== idx);
+            } else {
+                joined.push(idx);
+            }
+            localStorage.setItem('joinedGroups', JSON.stringify(joined));
+            renderGroups();
+        }
+
+        renderGuides();
+        renderGroups();
+    </script>
+</body>
+</html>

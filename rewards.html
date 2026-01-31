@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie Rewards - Foodies For Foodies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #ff6b4a;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #ff6b4a;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .hero {
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #f57f17;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .points-banner {
+            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(255, 107, 74, 0.3);
+        }
+
+        .points-display {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .points-label {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ff6b4a;
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .deal-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .deal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .deal-header {
+            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .deal-badge {
+            font-size: 2rem;
+        }
+
+        .deal-discount {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        .deal-content {
+            padding: 1.5rem;
+        }
+
+        .deal-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .deal-desc {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .deal-cost {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+            margin-bottom: 1rem;
+        }
+
+        .points-cost {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ff6b4a;
+        }
+
+        .redeem-btn {
+            background: #ff6b4a;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .redeem-btn:hover:not(:disabled) {
+            background: #ff5533;
+            transform: translateY(-2px);
+        }
+
+        .redeem-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .redemptions-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .redemption-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .redemption-item:last-child {
+            border-bottom: none;
+        }
+
+        .redemption-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .redemption-date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .redemption-status {
+            background: #4caf50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .hero { padding: 2rem 1.5rem; }
+            .hero h1 { font-size: 2rem; }
+            .container { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <h1 class="logo">Foodies</h1>
+        </div>
+        <a href="index.html" class="back-btn">← Back Home</a>
+    </nav>
+
+    <section class="hero">
+        <h1>🎫 Foodie Rewards</h1>
+        <p>Earn points and unlock exclusive local deals</p>
+    </section>
+
+    <div class="container">
+        <div class="points-banner">
+            <div class="points-display" id="pointsDisplay">0</div>
+            <div class="points-label">Reward Points</div>
+        </div>
+
+        <h2 class="section-title">Exclusive Local Deals</h2>
+        <div class="deals-grid" id="dealsGrid"></div>
+
+        <h2 class="section-title">Your Redemptions</h2>
+        <div class="redemptions-section" id="redemptionsSection"></div>
+    </div>
+
+    <script>
+        const deals = [
+            {
+                emoji: '🍕',
+                title: '20% Off Pizza',
+                desc: 'Get 20% off at Mario\'s Pizzeria',
+                points: 150,
+                expires: '2 weeks'
+            },
+            {
+                emoji: '🍽️',
+                title: 'Free Appetizer',
+                desc: 'Free appetizer at The Gourmet Table',
+                points: 200,
+                expires: '3 weeks'
+            },
+            {
+                emoji: '☕',
+                title: 'Free Coffee',
+                desc: 'Free espresso drink at Brew Haven',
+                points: 75,
+                expires: '1 week'
+            },
+            {
+                emoji: '🍣',
+                title: '30% Off Sushi',
+                desc: 'Get 30% off at Tokyo Sushi Bar',
+                points: 250,
+                expires: '2 weeks'
+            },
+            {
+                emoji: '🍰',
+                title: 'Free Dessert',
+                desc: 'Free dessert at Sweet Dreams Bakery',
+                points: 120,
+                expires: '10 days'
+            },
+            {
+                emoji: '🥗',
+                title: '$15 Off',
+                desc: '$15 off any order at Fresh Bowl Cafe',
+                points: 180,
+                expires: '2 weeks'
+            }
+        ];
+
+        // Initialize points (simulate earning from challenges)
+        let userPoints = localStorage.getItem('foodiePoints') ? parseInt(localStorage.getItem('foodiePoints')) : 450;
+
+        function updatePointsDisplay() {
+            document.getElementById('pointsDisplay').textContent = userPoints;
+            localStorage.setItem('foodiePoints', userPoints);
+        }
+
+        function renderDeals() {
+            const grid = document.getElementById('dealsGrid');
+            const redemptions = JSON.parse(localStorage.getItem('redemptions')) || [];
+
+            grid.innerHTML = deals.map((deal, idx) => {
+                const isRedeemed = redemptions.some(r => r.dealIdx === idx && r.date === new Date().toDateString());
+                const canRedeem = userPoints >= deal.points && !isRedeemed;
+
+                return `
+                    <div class="deal-card">
+                        <div class="deal-header">
+                            <div class="deal-badge">${deal.emoji}</div>
+                            <div class="deal-discount">-${Math.round((deal.points / 200) * 50)}%</div>
+                        </div>
+                        <div class="deal-content">
+                            <div class="deal-title">${deal.title}</div>
+                            <div class="deal-desc">${deal.desc}</div>
+                            <div class="deal-cost">
+                                <span>⏱️ Expires ${deal.expires}</span>
+                                <span class="points-cost">${deal.points} pts</span>
+                            </div>
+                            <button class="redeem-btn" onclick="redeemDeal(${idx}, ${deal.points})" ${!canRedeem ? 'disabled' : ''}>
+                                ${isRedeemed ? '✓ Redeemed Today' : userPoints < deal.points ? 'Not Enough Points' : 'Redeem Deal'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function redeemDeal(idx, pointsCost) {
+            if (userPoints >= pointsCost) {
+                userPoints -= pointsCost;
+                const redemptions = JSON.parse(localStorage.getItem('redemptions')) || [];
+                redemptions.push({
+                    dealIdx: idx,
+                    dealName: deals[idx].title,
+                    points: pointsCost,
+                    date: new Date().toDateString()
+                });
+                localStorage.setItem('redemptions', JSON.stringify(redemptions));
+                updatePointsDisplay();
+                renderDeals();
+                renderRedemptions();
+                alert('Deal redeemed! Check your redemptions below.');
+            }
+        }
+
+        function renderRedemptions() {
+            const section = document.getElementById('redemptionsSection');
+            const redemptions = JSON.parse(localStorage.getItem('redemptions')) || [];
+
+            if (redemptions.length === 0) {
+                section.innerHTML = '<p style="text-align: center; color: #999; padding: 2rem;">No redemptions yet. Redeem a deal to get started!</p>';
+                return;
+            }
+
+            section.innerHTML = redemptions.reverse().map((r, idx) => `
+                <div class="redemption-item">
+                    <div class="redemption-info">
+                        <h4>${deals[r.dealIdx].emoji} ${r.dealName}</h4>
+                        <div class="redemption-date">${new Date(r.date).toLocaleDateString()}</div>
+                    </div>
+                    <div>
+                        <span style="color: #ff6b4a; font-weight: 700;">-${r.points} pts</span>
+                        <div class="redemption-status">Completed</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        updatePointsDisplay();
+        renderDeals();
+        renderRedemptions();
+
+        // Simulate earning points from activities
+        window.addEventListener('load', () => {
+            const lastEarn = localStorage.getItem('lastPointsEarn');
+            const today = new Date().toDateString();
+            if (lastEarn !== today) {
+                userPoints += 25; // Daily login bonus
+                localStorage.setItem('lastPointsEarn', today);
+                updatePointsDisplay();
+            }
+        });
+    </script>
+</body>
+</html>

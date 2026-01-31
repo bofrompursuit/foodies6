@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Content - Foodies For Foodies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #ff6b4a;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #ff6b4a;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .hero {
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #e65100;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #e65100;
+            border-bottom-color: #e65100;
+        }
+
+        /* Create Form */
+        .form-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #e65100;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .tags-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .tag {
+            background: #e65100;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .tag button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0;
+        }
+
+        .tag-input-field {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 150px;
+            font-family: inherit;
+        }
+
+        .publish-btn {
+            background: #e65100;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .publish-btn:hover {
+            background: #bf360c;
+            transform: translateY(-2px);
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-header {
+            background: linear-gradient(135deg, #e65100 0%, #ff6b4a 100%);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-type {
+            font-size: 1.5rem;
+        }
+
+        .content-views {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+
+        .content-body {
+            padding: 1.5rem;
+        }
+
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .content-excerpt {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .content-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .engagement-icons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .engagement-icons button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+
+        .engagement-icons button:hover {
+            transform: scale(1.2);
+        }
+
+        .no-content {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .hero { padding: 2rem 1.5rem; }
+            .hero h1 { font-size: 2rem; }
+            .container { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <h1 class="logo">Foodies</h1>
+        </div>
+        <a href="index.html" class="back-btn">← Back Home</a>
+    </nav>
+
+    <section class="hero">
+        <h1>✏️ Share Your Culinary Journey</h1>
+        <p>Create recipes, stories, and food reviews</p>
+    </section>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('create')">✍️ Create New</button>
+            <button class="tab-btn" onclick="showTab('myContent')">📝 My Content</button>
+        </div>
+
+        <!-- Create Tab -->
+        <div id="create-tab">
+            <div class="form-section">
+                <form id="contentForm">
+                    <div class="form-group">
+                        <label for="contentType">Content Type</label>
+                        <select id="contentType" required>
+                            <option value="">Select content type</option>
+                            <option value="recipe">🍳 Recipe</option>
+                            <option value="story">📖 Food Story</option>
+                            <option value="review">⭐ Restaurant Review</option>
+                            <option value="tip">💡 Cooking Tip</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" placeholder="Enter a catchy title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="content">Content</label>
+                        <textarea id="content" placeholder="Share your story, recipe, or review..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tags</label>
+                        <div class="tags-input">
+                            <div id="tagsContainer"></div>
+                            <input type="text" class="tag-input-field" id="tagInput" placeholder="Add tags (press Enter)" 
+                                   onkeypress="handleTagInput(event)">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="publish-btn">Publish Content</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- My Content Tab -->
+        <div id="myContent-tab" style="display: none;">
+            <div class="content-grid" id="contentGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        let tags = [];
+        let userContent = JSON.parse(localStorage.getItem('userContent')) || [];
+
+        function showTab(tab) {
+            document.querySelectorAll('[id$="-tab"]').forEach(el => el.style.display = 'none');
+            document.getElementById(tab + '-tab').style.display = 'block';
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (tab === 'myContent') {
+                renderContent();
+            }
+        }
+
+        function handleTagInput(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const input = document.getElementById('tagInput');
+                const tag = input.value.trim();
+                if (tag && !tags.includes(tag)) {
+                    tags.push(tag);
+                    renderTags();
+                    input.value = '';
+                }
+            }
+        }
+
+        function renderTags() {
+            const container = document.getElementById('tagsContainer');
+            container.innerHTML = tags.map(tag => `
+                <div class="tag">
+                    ${tag}
+                    <button type="button" onclick="removeTag('${tag}')">×</button>
+                </div>
+            `).join('');
+        }
+
+        function removeTag(tag) {
+            tags = tags.filter(t => t !== tag);
+            renderTags();
+        }
+
+        document.getElementById('contentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const content = {
+                id: Date.now(),
+                type: document.getElementById('contentType').value,
+                title: document.getElementById('title').value,
+                text: document.getElementById('content').value,
+                tags: tags,
+                date: new Date().toLocaleDateString(),
+                views: 0,
+                likes: 0,
+                comments: 0
+            };
+
+            userContent.unshift(content);
+            localStorage.setItem('userContent', JSON.stringify(userContent));
+
+            // Reset form
+            this.reset();
+            tags = [];
+            renderTags();
+            alert('Content published successfully! 🎉');
+            showTab('myContent');
+        });
+
+        function renderContent() {
+            const grid = document.getElementById('contentGrid');
+            
+            if (userContent.length === 0) {
+                grid.innerHTML = '<div class="no-content" style="grid-column: 1/-1;"><p>No content yet. Create your first post!</p></div>';
+                return;
+            }
+
+            grid.innerHTML = userContent.map(item => {
+                const emoji = {
+                    recipe: '🍳',
+                    story: '📖',
+                    review: '⭐',
+                    tip: '💡'
+                }[item.type];
+
+                return `
+                    <div class="content-card">
+                        <div class="content-header">
+                            <div class="content-type">${emoji}</div>
+                            <div class="content-views">👁️ ${Math.floor(Math.random() * 500)} views</div>
+                        </div>
+                        <div class="content-body">
+                            <div class="content-title">${item.title}</div>
+                            <div class="content-excerpt">${item.text.substring(0, 100)}...</div>
+                            <div class="content-meta">
+                                <span>${item.date}</span>
+                                <div class="engagement-icons">
+                                    <button onclick="likeContent(${item.id})">❤️ ${item.likes}</button>
+                                    <button onclick="commentContent(${item.id})">💬 ${item.comments}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function likeContent(id) {
+            const item = userContent.find(c => c.id === id);
+            if (item) {
+                item.likes++;
+                localStorage.setItem('userContent', JSON.stringify(userContent));
+                renderContent();
+            }
+        }
+
+        function commentContent(id) {
+            const comment = prompt('Add a comment:');
+            if (comment) {
+                const item = userContent.find(c => c.id === id);
+                if (item) {
+                    item.comments++;
+                    localStorage.setItem('userContent', JSON.stringify(userContent));
+                    renderContent();
+                }
+            }
+        }
+
+        renderTags();
+    </script>
+</body>
+</html>
