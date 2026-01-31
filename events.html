@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Meetups - Foodies For Foodies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            color: #333;
+            background: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: white;
+            position: relative;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #ff6b4a;
+            font-weight: 700;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #ff6b4a;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #ff5533;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #ff6b4a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #ff6b4a;
+            color: white;
+            border-color: #ff6b4a;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            color: white;
+        }
+
+        .event-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-type {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .event-content {
+            padding: 1.5rem;
+        }
+
+        .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .event-detail strong {
+            color: #333;
+        }
+
+        .event-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-attending {
+            background: #f0f0f0;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .join-btn {
+            background: #ff6b4a;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .join-btn:hover {
+            background: #ff5533;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 74, 0.3);
+        }
+
+        .join-btn.joined {
+            background: #4caf50;
+        }
+
+        .join-btn.joined:hover {
+            background: #45a049;
+        }
+
+        .no-events {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+
+        .no-events p {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .filters {
+                justify-content: center;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            <h1>Foodies For Foodies</h1>
+            <p>YOUR SAVORY STORY</p>
+        </a>
+        <a href="index.html" class="back-btn">← Back Home</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>📅 Foodie Events & Meetups</h1>
+        <p>Join local food enthusiasts for cooking classes, tastings, and culinary adventures!</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All Events</button>
+            <button class="filter-btn" data-filter="cooking">Cooking Classes</button>
+            <button class="filter-btn" data-filter="tasting">Tastings</button>
+            <button class="filter-btn" data-filter="social">Social Meetups</button>
+        </div>
+
+        <div class="events-grid" id="eventsGrid">
+            <!-- Events will be populated here -->
+        </div>
+    </div>
+
+    <script>
+        const events = [
+            {
+                id: 1,
+                title: 'Italian Pasta Making Class',
+                date: 'Feb 8, 2026',
+                time: '6:00 PM',
+                location: 'Downtown Kitchen Studio',
+                category: 'cooking',
+                description: 'Learn traditional pasta-making techniques from our chef. Make fresh tagliatelle, pappardelle, and more!',
+                attending: 23,
+                price: '$45'
+            },
+            {
+                id: 2,
+                title: 'Wine & Cheese Tasting Night',
+                date: 'Feb 15, 2026',
+                time: '7:00 PM',
+                location: 'The Wine Bar',
+                category: 'tasting',
+                description: 'Explore a curated selection of wines paired with artisanal cheeses from around the world.',
+                attending: 34,
+                price: '$60'
+            },
+            {
+                id: 3,
+                title: 'Foodie Lunch & Learn',
+                date: 'Feb 10, 2026',
+                time: '12:30 PM',
+                location: 'Central Park',
+                category: 'social',
+                description: 'Casual lunch meetup for food lovers. Bring your favorite dish and make new friends!',
+                attending: 18,
+                price: 'Free'
+            },
+            {
+                id: 4,
+                title: 'Asian Fusion Cooking Workshop',
+                date: 'Feb 22, 2026',
+                time: '6:30 PM',
+                location: 'Modern Kitchen Academy',
+                category: 'cooking',
+                description: 'Master the art of Asian fusion cooking with our experienced instructors. Cook, taste, and take recipes home!',
+                attending: 28,
+                price: '$55'
+            },
+            {
+                id: 5,
+                title: 'Coffee Roasting & Brewing Masterclass',
+                date: 'Feb 12, 2026',
+                time: '10:00 AM',
+                location: 'Artisan Coffee Lab',
+                category: 'tasting',
+                description: 'Learn about coffee roasting, brewing methods, and taste different origins and blends.',
+                attending: 15,
+                price: '$40'
+            },
+            {
+                id: 6,
+                title: 'Brunch Potluck Party',
+                date: 'Feb 16, 2026',
+                time: '11:00 AM',
+                location: 'Riverside Gardens',
+                category: 'social',
+                description: 'Bring your best brunch dish and enjoy a relaxed day with fellow foodies. Games, food, and fun!',
+                attending: 42,
+                price: 'Free'
+            }
+        ];
+
+        const eventsGrid = document.getElementById('eventsGrid');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        let currentFilter = 'all';
+        let joinedEvents = new Set();
+
+        function renderEvents(filter = 'all') {
+            eventsGrid.innerHTML = '';
+            const filtered = filter === 'all' ? events : events.filter(e => e.category === filter);
+
+            if (filtered.length === 0) {
+                eventsGrid.innerHTML = '<div class="no-events"><p>No events found in this category.</p></div>';
+                return;
+            }
+
+            filtered.forEach(event => {
+                const card = document.createElement('div');
+                card.className = 'event-card';
+                const isJoined = joinedEvents.has(event.id);
+                
+                card.innerHTML = `
+                    <div class="event-header">
+                        <div class="event-date">📅 ${event.date}</div>
+                        <div class="event-title">${event.title}</div>
+                        <div class="event-type">${event.category.charAt(0).toUpperCase() + event.category.slice(1)}</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-detail">
+                            <strong>⏰</strong> ${event.time}
+                        </div>
+                        <div class="event-detail">
+                            <strong>📍</strong> ${event.location}
+                        </div>
+                        <div class="event-detail">
+                            <strong>💰</strong> ${event.price}
+                        </div>
+                        <p class="event-description">${event.description}</p>
+                        <div class="event-attending">
+                            👥 ${event.attending} foodies attending
+                        </div>
+                        <button class="join-btn ${isJoined ? 'joined' : ''}" data-event-id="${event.id}">
+                            ${isJoined ? '✓ Joined' : 'Join Event'}
+                        </button>
+                    </div>
+                `;
+
+                card.querySelector('.join-btn').addEventListener('click', function() {
+                    if (joinedEvents.has(event.id)) {
+                        joinedEvents.delete(event.id);
+                        this.textContent = 'Join Event';
+                        this.classList.remove('joined');
+                        event.attending--;
+                    } else {
+                        joinedEvents.add(event.id);
+                        this.textContent = '✓ Joined';
+                        this.classList.add('joined');
+                        event.attending++;
+                    }
+                    // Update attending count
+                    card.querySelector('.event-attending').textContent = `👥 ${event.attending} foodies attending`;
+                });
+
+                eventsGrid.appendChild(card);
+            });
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                renderEvents(currentFilter);
+            });
+        });
+
+        // Initial render
+        renderEvents();
+    </script>
+</body>
+</html>

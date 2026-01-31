@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's in My Fridge? - Foodies For Foodies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            color: #333;
+            background: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: white;
+            position: relative;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #ff6b4a;
+            font-weight: 700;
+        }
+
+        .logo p {
+            font-size: 0.65rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #ff6b4a;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #ff5533;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, #fff3ed 0%, #ffe8df 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #ff6b4a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .fridge-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .fridge-section h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #ff6b4a;
+            padding-bottom: 0.75rem;
+        }
+
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ingredient-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .ingredient-btn:hover {
+            border-color: #ff6b4a;
+            background: #fff3ed;
+            transform: translateY(-2px);
+        }
+
+        .ingredient-btn.selected {
+            background: #ff6b4a;
+            color: white;
+            border-color: #ff6b4a;
+        }
+
+        .selected-ingredients {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .selected-ingredients h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .ingredient-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .ingredient-tag {
+            background: #ff6b4a;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .ingredient-tag button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-generate {
+            background: #ff6b4a;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-generate:hover {
+            background: #ff5533;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 74, 0.4);
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .recipe-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .recipe-content {
+            padding: 1.5rem;
+        }
+
+        .recipe-content h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-time {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .recipe-content p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .recipe-btn {
+            background: #ff6b4a;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .recipe-btn:hover {
+            background: #ff5533;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .ingredients-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            <h1>Foodies For Foodies</h1>
+            <p>YOUR SAVORY STORY</p>
+        </a>
+        <a href="index.html" class="back-btn">← Back Home</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>🧃 What's in My Fridge?</h1>
+        <p>Tell us what ingredients you have, and our AI will suggest delicious recipes you can make today!</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="fridge-section">
+            <h2>Select Your Ingredients</h2>
+            
+            <div class="ingredients-grid" id="ingredientsGrid">
+                <!-- Ingredients will be populated here -->
+            </div>
+
+            <div class="selected-ingredients" id="selectedContainer" style="display: none;">
+                <h3>Selected Ingredients:</h3>
+                <div class="ingredient-tags" id="selectedTags"></div>
+            </div>
+
+            <button class="btn-generate" id="generateBtn">Generate Recipes</button>
+        </div>
+
+        <div class="fridge-section">
+            <div class="recipes-grid" id="recipesGrid">
+                <!-- Generated recipes will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ingredients = [
+            '🍗 Chicken',
+            '🥩 Beef',
+            '🐟 Fish',
+            '🥚 Eggs',
+            '🧀 Cheese',
+            '🥛 Milk',
+            '🍅 Tomato',
+            '🥬 Lettuce',
+            '🥔 Potato',
+            '🧅 Onion',
+            '🧄 Garlic',
+            '🥕 Carrot',
+            '🫒 Olive Oil',
+            '🍞 Bread',
+            '🍝 Pasta',
+            '🍚 Rice',
+            '🌶️ Pepper',
+            '🧂 Salt'
+        ];
+
+        const sampleRecipes = [
+            {
+                name: 'Classic Pasta Carbonara',
+                time: '20 mins',
+                emoji: '🍝',
+                desc: 'Creamy Italian pasta with eggs, cheese, and pancetta'
+            },
+            {
+                name: 'Grilled Chicken Salad',
+                time: '30 mins',
+                emoji: '🥗',
+                desc: 'Healthy and delicious grilled chicken with fresh veggies'
+            },
+            {
+                name: 'Tomato Soup',
+                time: '25 mins',
+                emoji: '🍲',
+                desc: 'Warm and comforting homemade tomato soup'
+            },
+            {
+                name: 'Beef Stir Fry',
+                time: '35 mins',
+                emoji: '🍳',
+                desc: 'Quick Asian-inspired beef with vegetables'
+            },
+            {
+                name: 'Garlic Bread',
+                time: '15 mins',
+                emoji: '🥖',
+                desc: 'Crispy bread with garlic, oil, and herbs'
+            },
+            {
+                name: 'Omelette',
+                time: '10 mins',
+                emoji: '🍳',
+                desc: 'Fluffy eggs with cheese and veggies'
+            }
+        ];
+
+        const ingredientsGrid = document.getElementById('ingredientsGrid');
+        const generateBtn = document.getElementById('generateBtn');
+        const recipesGrid = document.getElementById('recipesGrid');
+        const selectedContainer = document.getElementById('selectedContainer');
+        const selectedTags = document.getElementById('selectedTags');
+        const selectedSet = new Set();
+
+        // Populate ingredients
+        ingredients.forEach(ingredient => {
+            const btn = document.createElement('button');
+            btn.className = 'ingredient-btn';
+            btn.textContent = ingredient;
+            btn.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                updateSelected(ingredient);
+            });
+            ingredientsGrid.appendChild(btn);
+        });
+
+        function updateSelected(ingredient) {
+            if (selectedSet.has(ingredient)) {
+                selectedSet.delete(ingredient);
+            } else {
+                selectedSet.add(ingredient);
+            }
+            renderSelectedTags();
+        }
+
+        function renderSelectedTags() {
+            selectedTags.innerHTML = '';
+            if (selectedSet.size === 0) {
+                selectedContainer.style.display = 'none';
+                return;
+            }
+            selectedContainer.style.display = 'block';
+            selectedSet.forEach(ingredient => {
+                const tag = document.createElement('div');
+                tag.className = 'ingredient-tag';
+                tag.innerHTML = `
+                    ${ingredient}
+                    <button onclick="event.stopPropagation()">×</button>
+                `;
+                tag.querySelector('button').addEventListener('click', () => {
+                    updateSelected(ingredient);
+                    document.querySelectorAll('.ingredient-btn').forEach(btn => {
+                        if (btn.textContent === ingredient) {
+                            btn.classList.remove('selected');
+                        }
+                    });
+                });
+                selectedTags.appendChild(tag);
+            });
+        }
+
+        generateBtn.addEventListener('click', function() {
+            if (selectedSet.size === 0) {
+                alert('Please select at least one ingredient!');
+                return;
+            }
+
+            recipesGrid.innerHTML = '';
+            sampleRecipes.forEach(recipe => {
+                const card = document.createElement('div');
+                card.className = 'recipe-card';
+                card.innerHTML = `
+                    <div class="recipe-image">${recipe.emoji}</div>
+                    <div class="recipe-content">
+                        <h3>${recipe.name}</h3>
+                        <div class="recipe-time">⏱️ ${recipe.time}</div>
+                        <p>${recipe.desc}</p>
+                        <button class="recipe-btn">View Recipe</button>
+                    </div>
+                `;
+                recipesGrid.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>
