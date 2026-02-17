@@ -1,62 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodie Travel - Foodies For Foodies</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Garamond', 'Georgia', serif;
-            color: #1a1a1a;
-            background: #f8f9fa;
-            line-height: 1.6;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 3rem;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .logo h1 {
-            font-size: 1.5rem;
-            color: #ff6b4a;
-            font-weight: 700;
-        }
-
-        .back-btn {
-            background: transparent;
-            border: none;
-            color: #ff6b4a;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
+        /* Specific Styles for Travel Page */
         .hero {
-            padding: 4rem 3rem;
-            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            background: transparent;
             text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: #00695c;
-            margin-bottom: 1rem;
+            padding: 4rem 2rem;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem;
+            padding: 2rem;
         }
 
         .filters {
@@ -64,23 +25,25 @@
             gap: 1rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .filter-btn {
-            background: white;
-            border: 2px solid #e0e0e0;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 0.75rem 1.5rem;
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 600;
+            color: #ccc;
         }
 
         .filter-btn:hover,
         .filter-btn.active {
-            background: #00695c;
-            color: white;
-            border-color: #00695c;
+            background: var(--primary-color);
+            color: #121212;
+            border-color: var(--primary-color);
         }
 
         .destinations-grid {
@@ -90,27 +53,28 @@
         }
 
         .destination-card {
-            background: white;
+            background: rgba(20, 20, 20, 0.8);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s;
         }
 
         .destination-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .destination-image {
             width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, #00695c 0%, #00897b 100%);
+            background: linear-gradient(135deg, #121212 0%, #2a2a2a 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .destination-content {
@@ -125,14 +89,15 @@
         }
 
         .destination-name {
-            font-size: 1.3rem;
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
             font-weight: 700;
-            color: #333;
+            color: var(--primary-color);
         }
 
         .destination-rating {
-            background: #fff8e1;
-            color: #f57f17;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffd700;
             padding: 0.25rem 0.75rem;
             border-radius: 12px;
             font-size: 0.85rem;
@@ -140,13 +105,14 @@
         }
 
         .destination-type {
-            color: #999;
+            color: #888;
             font-size: 0.9rem;
             margin-bottom: 1rem;
+            font-style: italic;
         }
 
         .destination-description {
-            color: #666;
+            color: #ccc;
             font-size: 0.95rem;
             line-height: 1.5;
             margin-bottom: 1rem;
@@ -160,12 +126,13 @@
         }
 
         .cuisine-tag {
-            background: #e0f2f1;
-            color: #00695c;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--primary-color);
             padding: 0.35rem 0.75rem;
             border-radius: 15px;
             font-size: 0.8rem;
             font-weight: 600;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .destination-footer {
@@ -173,35 +140,39 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 1rem;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .budget {
             font-size: 0.9rem;
-            color: #666;
+            color: #999;
         }
 
         .plan-trip-btn {
-            background: #00695c;
-            color: white;
+            background: var(--primary-color);
+            color: #121212;
             border: none;
             padding: 0.5rem 1.25rem;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 600;
-            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .plan-trip-btn:hover {
-            background: #004d40;
+            background: #e5c14f;
             transform: translateY(-2px);
         }
 
         .plan-trip-btn.planned {
-            background: #4caf50;
+            background: transparent;
+            border: 1px solid #4caf50;
+            color: #4caf50;
         }
 
+        /* Modal Overrides */
         .modal {
             display: none;
             position: fixed;
@@ -209,10 +180,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.8);
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
         }
 
         .modal.active {
@@ -220,87 +192,100 @@
         }
 
         .modal-content {
-            background: white;
+            background: #1a1a1a;
+            border: 1px solid var(--primary-color);
             border-radius: 15px;
             padding: 2rem;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-close {
-            float: right;
-            background: transparent;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #999;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            color: white;
         }
 
         .modal h2 {
+            font-family: var(--font-heading);
             margin-bottom: 1.5rem;
-            color: #333;
-        }
-
-        .modal-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            color: var(--primary-color);
         }
 
         .modal-form input,
         .modal-form select {
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: inherit;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: white;
+        }
+
+        .modal-form input:focus,
+        .modal-form select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .modal-close {
+            color: #999;
+        }
+
+        .modal-close:hover {
+            color: white;
         }
 
         .modal-form button {
-            background: #00695c;
-            color: white;
-            border: none;
-            padding: 0.75rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s;
+            background: var(--primary-color);
+            color: #121212;
         }
 
         .modal-form button:hover {
-            background: #004d40;
-        }
-
-        @media (max-width: 768px) {
-            nav { padding: 1rem 1.5rem; }
-            .hero { padding: 2rem 1.5rem; }
-            .hero h1 { font-size: 2rem; }
-            .container { padding: 1.5rem; }
+            background: #e5c14f;
         }
     </style>
 </head>
+
 <body>
-    <nav>
-        <div>
-            <h1 class="logo">Foodies</h1>
+    <!-- Background Image -->
+    <img src="assets/images/category_travel_1771292734775.png" alt="Travel Background" class="bg-image">
+
+    <!-- Mobile Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="brand">
+            <h1>Foodies</h1>
+            <p>For Foodies</p>
         </div>
-        <a href="index.html" class="back-btn">← Back Home</a>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="fridge.html">🥑 My Fridge</a></li>
+            <li><a href="guides.html">📚 Guides & Groups</a></li>
+            <li><a href="events.html">📅 Events</a></li>
+            <li><a href="travel.html" class="active">✈️ Travel</a></li>
+            <li><a href="podcast.html">🎙️ Podcast</a></li>
+            <li><a href="polls.html">📊 Polls</a></li>
+            <li><a href="rewards.html">🏆 Rewards</a></li>
+        </ul>
+        <a href="sign-in.html" class="sign-in-btn">Sign In</a>
     </nav>
 
-    <section class="hero">
-        <h1>✈️ Foodie Travel Destinations</h1>
-        <p>Discover world-class culinary destinations and plan your next food adventure</p>
-    </section>
+    <!-- Main Content -->
+    <div class="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <span class="category-badge">Explore World Cuisines</span>
+                <h2>Foodie <span>Travel</span></h2>
+                <p>Discover world-class culinary destinations and plan your next food adventure.</p>
+            </div>
+        </section>
 
-    <div class="container">
-        <div class="filters">
-            <button class="filter-btn active" onclick="filterDestinations('all')">All Destinations</button>
-            <button class="filter-btn" onclick="filterDestinations('asia')">🌏 Asia</button>
-            <button class="filter-btn" onclick="filterDestinations('europe')">🌍 Europe</button>
-            <button class="filter-btn" onclick="filterDestinations('americas')">🌎 Americas</button>
+        <div class="container">
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterDestinations('all')">All Destinations</button>
+                <button class="filter-btn" onclick="filterDestinations('asia')">🌏 Asia</button>
+                <button class="filter-btn" onclick="filterDestinations('europe')">🌍 Europe</button>
+                <button class="filter-btn" onclick="filterDestinations('americas')">🌎 Americas</button>
+            </div>
+
+            <div class="destinations-grid" id="destinationsGrid"></div>
         </div>
-
-        <div class="destinations-grid" id="destinationsGrid"></div>
     </div>
 
     <!-- Trip Planning Modal -->
@@ -325,6 +310,21 @@
     </div>
 
     <script>
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const toggle = document.getElementById('sidebarToggle');
+        const body = document.body;
+
+        toggle.addEventListener('click', () => {
+            if (sidebar.classList.contains('active')) {
+                body.classList.remove('nav-open');
+            } else {
+                body.classList.add('nav-open');
+            }
+            sidebar.classList.toggle('active');
+            toggle.innerHTML = sidebar.classList.contains('active') ? '×' : '☰';
+        });
+
         const destinations = [
             {
                 emoji: '🇯🇵',
@@ -463,4 +463,5 @@
         renderDestinations();
     </script>
 </body>
+
 </html>

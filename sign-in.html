@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Foodies For Foodies</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Garamond', 'Georgia', serif;
-            color: #1a1a1a;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: url('assets/images/classy_dining_bg_1771292626751.png') no-repeat center center fixed;
+            background-size: cover;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            line-height: 1.6;
+        }
+
+        /* Overlay for readablity */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 0;
         }
 
         .nav-header {
@@ -31,64 +37,76 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 3rem;
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid #eee;
+            padding: 2rem 3rem;
+            z-index: 10;
         }
 
         .logo-link {
-            display: flex;
-            flex-direction: column;
             text-decoration: none;
-            color: inherit;
+            color: white;
+            text-align: left;
         }
 
         .logo-link h1 {
-            font-size: 1.5rem;
-            color: #ff6b4a;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--primary-color);
             font-weight: 700;
+            margin: 0;
         }
 
         .logo-link p {
-            font-size: 0.65rem;
-            color: #666;
+            font-size: 0.7rem;
+            color: #ccc;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            margin: 0;
         }
 
         .back-btn {
             background: transparent;
-            border: none;
-            color: #ff6b4a;
-            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 0.9rem;
             cursor: pointer;
             text-decoration: none;
-            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .back-btn:hover {
-            color: #ff5533;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
         }
 
         .sign-in-container {
-            background: white;
+            position: relative;
+            z-index: 10;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             padding: 3rem;
             max-width: 400px;
             width: 100%;
-            margin-top: 80px;
+            margin-top: 60px;
         }
 
         .sign-in-container h2 {
+            font-family: var(--font-heading);
             font-size: 2rem;
-            color: #333;
-            margin-bottom: 1rem;
+            color: white;
+            margin-bottom: 0.5rem;
             text-align: center;
         }
 
         .sign-in-container p {
-            color: #666;
+            color: #ccc;
             text-align: center;
             margin-bottom: 2rem;
             font-size: 0.95rem;
@@ -102,27 +120,32 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #333;
-            font-size: 0.95rem;
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .form-group input {
             width: 100%;
             padding: 0.75rem 1rem;
-            border: 2px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            color: white;
+            transition: all 0.3s;
             font-family: inherit;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #ff6b4a;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .form-group input::placeholder {
-            color: #999;
+            color: #666;
         }
 
         .remember-me {
@@ -135,6 +158,7 @@
         .remember-me input[type="checkbox"] {
             width: auto;
             cursor: pointer;
+            accent-color: var(--primary-color);
         }
 
         .remember-me label {
@@ -142,12 +166,13 @@
             font-weight: normal;
             cursor: pointer;
             font-size: 0.9rem;
+            color: #ccc;
         }
 
         .sign-in-btn {
             width: 100%;
-            background: #ff6b4a;
-            color: white;
+            background: var(--primary-color);
+            color: #121212;
             border: none;
             padding: 0.875rem;
             border-radius: 8px;
@@ -155,73 +180,77 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .sign-in-btn:hover {
-            background: #ff5533;
+            background: #e5c14f;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 107, 74, 0.4);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
         }
 
         .sign-up-link {
             text-align: center;
             margin-top: 1.5rem;
-            color: #666;
+            color: #ccc !important;
             font-size: 0.95rem;
         }
 
         .sign-up-link a {
-            color: #ff6b4a;
+            color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
         }
 
         .sign-up-link a:hover {
-            color: #ff5533;
+            color: white;
+            text-decoration: underline;
         }
 
         .error-message {
-            background: #ffebee;
-            color: #c62828;
+            background: rgba(198, 40, 40, 0.2);
+            color: #ef9a9a;
             padding: 0.75rem;
             border-radius: 8px;
             margin-bottom: 1.5rem;
             font-size: 0.9rem;
             display: none;
+            border: 1px solid rgba(198, 40, 40, 0.3);
+            text-align: center;
         }
 
         .success-message {
-            background: #e8f5e9;
-            color: #2e7d32;
+            background: rgba(46, 125, 50, 0.2);
+            color: #a5d6a7;
             padding: 0.75rem;
             border-radius: 8px;
             margin-bottom: 1.5rem;
             font-size: 0.9rem;
             display: none;
+            border: 1px solid rgba(46, 125, 50, 0.3);
+            text-align: center;
         }
 
         @media (max-width: 768px) {
             .nav-header {
-                padding: 1rem 1.5rem;
+                padding: 1.5rem;
             }
 
             .sign-in-container {
                 padding: 2rem;
-                margin-top: 100px;
-            }
-
-            .sign-in-container h2 {
-                font-size: 1.75rem;
+                margin-top: 80px;
             }
         }
     </style>
 </head>
+
 <body>
     <nav class="nav-header">
         <a href="index.html" class="logo-link">
-            <h1>Foodies For Foodies</h1>
-            <p>YOUR SAVORY STORY</p>
+            <h1>Foodies</h1>
+            <p>For Foodies</p>
         </a>
         <a href="index.html" class="back-btn">← Back Home</a>
     </nav>
@@ -236,24 +265,12 @@
         <form id="signInForm">
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    placeholder="your@email.com" 
-                    required
-                >
+                <input type="email" id="email" name="email" placeholder="your@email.com" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    placeholder="••••••••" 
-                    required
-                >
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
             </div>
 
             <div class="remember-me">
@@ -265,7 +282,7 @@
         </form>
 
         <p class="sign-up-link">
-            Don't have an account? <a href="#signup">Create one</a>
+            Don't have an account? <a href="signup.html">Create one</a>
         </p>
     </div>
 
@@ -274,7 +291,7 @@
         const errorMessage = document.getElementById('errorMessage');
         const successMessage = document.getElementById('successMessage');
 
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
 
             const email = document.getElementById('email').value;
@@ -335,7 +352,7 @@
         }
 
         // Pre-fill email if remembered
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             if (localStorage.getItem('rememberMe') === 'true') {
                 document.getElementById('email').value = localStorage.getItem('email') || '';
                 document.getElementById('remember').checked = true;
@@ -343,4 +360,5 @@
         });
     </script>
 </body>
+
 </html>

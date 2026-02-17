@@ -1,69 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Content - Foodies For Foodies</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Garamond', 'Georgia', serif;
-            color: #1a1a1a;
-            background: #f8f9fa;
-            line-height: 1.6;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 3rem;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .logo h1 {
-            font-size: 1.5rem;
-            color: #ff6b4a;
-            font-weight: 700;
-        }
-
-        .back-btn {
-            background: transparent;
-            border: none;
-            color: #ff6b4a;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
+        /* Specific Styles for Create Page */
         .hero {
-            padding: 4rem 3rem;
-            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            background: transparent;
             text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: #e65100;
-            margin-bottom: 1rem;
+            padding: 4rem 2rem;
         }
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 3rem;
+            padding: 2rem;
         }
 
         .tabs {
             display: flex;
             gap: 1rem;
             margin-bottom: 2rem;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            justify-content: center;
         }
 
         .tab-btn {
@@ -71,54 +33,69 @@
             border: none;
             padding: 1rem 1.5rem;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            color: #999;
+            color: #888;
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
+            font-family: var(--font-heading);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .tab-btn:hover {
+            color: white;
         }
 
         .tab-btn.active {
-            color: #e65100;
-            border-bottom-color: #e65100;
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
         }
 
         /* Create Form */
         .form-section {
-            background: white;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #333;
+            color: var(--primary-color);
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             font-family: inherit;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            color: white;
+            transition: all 0.3s;
         }
 
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #e65100;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .form-group textarea {
@@ -131,42 +108,49 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             padding: 0.5rem;
-            background: white;
-            border: 2px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
+            min-height: 50px;
+            align-items: center;
         }
 
         .tag {
-            background: #e65100;
-            color: white;
-            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: #121212;
+            padding: 0.25rem 0.75rem;
             border-radius: 20px;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .tag button {
             background: transparent;
             border: none;
-            color: white;
+            color: #121212;
             cursor: pointer;
             font-size: 1.2rem;
             padding: 0;
+            line-height: 1;
         }
 
         .tag-input-field {
-            border: none;
-            outline: none;
+            border: none !important;
+            outline: none !important;
             flex: 1;
             min-width: 150px;
             font-family: inherit;
+            background: transparent !important;
+            padding: 0.5rem !important;
+            color: white !important;
         }
 
         .publish-btn {
-            background: #e65100;
-            color: white;
+            background: var(--primary-color);
+            color: #121212;
             border: none;
             padding: 1rem 2rem;
             border-radius: 8px;
@@ -175,35 +159,42 @@
             font-weight: 600;
             transition: all 0.3s;
             width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
         }
 
         .publish-btn:hover {
-            background: #bf360c;
+            background: #e5c14f;
             transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
         }
 
         /* Content Grid */
         .content-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
         }
 
         .content-card {
-            background: white;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s;
         }
 
         .content-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary-color);
         }
 
         .content-header {
-            background: linear-gradient(135deg, #e65100 0%, #ff6b4a 100%);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(18, 18, 18, 0.9) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
             padding: 1rem;
             display: flex;
@@ -216,10 +207,11 @@
         }
 
         .content-views {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
             padding: 0.25rem 0.75rem;
             border-radius: 15px;
             font-size: 0.85rem;
+            color: #ccc;
         }
 
         .content-body {
@@ -227,14 +219,15 @@
         }
 
         .content-title {
-            font-size: 1.2rem;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: #333;
+            color: white;
         }
 
         .content-excerpt {
-            color: #666;
+            color: #ccc;
             font-size: 0.95rem;
             line-height: 1.5;
             margin-bottom: 1rem;
@@ -249,8 +242,8 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 1rem;
-            border-top: 1px solid #e0e0e0;
-            color: #999;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
             font-size: 0.9rem;
         }
 
@@ -265,91 +258,137 @@
             cursor: pointer;
             font-size: 1.1rem;
             transition: transform 0.2s;
+            color: #ccc;
         }
 
         .engagement-icons button:hover {
             transform: scale(1.2);
+            color: var(--primary-color);
         }
 
         .no-content {
             text-align: center;
             padding: 3rem;
-            color: #999;
+            color: #888;
         }
 
         @media (max-width: 768px) {
-            nav { padding: 1rem 1.5rem; }
-            .hero { padding: 2rem 1.5rem; }
-            .hero h1 { font-size: 2rem; }
-            .container { padding: 1.5rem; }
+            .container {
+                padding: 1.5rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
+
 <body>
-    <nav>
-        <div>
-            <h1 class="logo">Foodies</h1>
+    <!-- Background Image -->
+    <img src="assets/images/category_cooking_1771292659599.png" alt="Create Background" class="bg-image">
+
+    <!-- Mobile Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="brand">
+            <h1>Foodies</h1>
+            <p>For Foodies</p>
         </div>
-        <a href="index.html" class="back-btn">← Back Home</a>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="fridge.html">🥑 My Fridge</a></li>
+            <li><a href="guides.html">📚 Guides & Groups</a></li>
+            <li><a href="events.html">📅 Events</a></li>
+            <li><a href="travel.html">✈️ Travel</a></li>
+            <li><a href="podcast.html">🎙️ Podcast</a></li>
+            <li><a href="polls.html">📊 Polls</a></li>
+            <li><a href="rewards.html">🏆 Rewards</a></li>
+        </ul>
+        <a href="sign-in.html" class="sign-in-btn">Sign In</a>
     </nav>
 
-    <section class="hero">
-        <h1>✏️ Share Your Culinary Journey</h1>
-        <p>Create recipes, stories, and food reviews</p>
-    </section>
-
-    <div class="container">
-        <div class="tabs">
-            <button class="tab-btn active" onclick="showTab('create')">✍️ Create New</button>
-            <button class="tab-btn" onclick="showTab('myContent')">📝 My Content</button>
-        </div>
-
-        <!-- Create Tab -->
-        <div id="create-tab">
-            <div class="form-section">
-                <form id="contentForm">
-                    <div class="form-group">
-                        <label for="contentType">Content Type</label>
-                        <select id="contentType" required>
-                            <option value="">Select content type</option>
-                            <option value="recipe">🍳 Recipe</option>
-                            <option value="story">📖 Food Story</option>
-                            <option value="review">⭐ Restaurant Review</option>
-                            <option value="tip">💡 Cooking Tip</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" id="title" placeholder="Enter a catchy title" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="content">Content</label>
-                        <textarea id="content" placeholder="Share your story, recipe, or review..." required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Tags</label>
-                        <div class="tags-input">
-                            <div id="tagsContainer"></div>
-                            <input type="text" class="tag-input-field" id="tagInput" placeholder="Add tags (press Enter)" 
-                                   onkeypress="handleTagInput(event)">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="publish-btn">Publish Content</button>
-                </form>
+    <!-- Main Content -->
+    <div class="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <span class="category-badge">Share & Inspire</span>
+                <h2>Create <span>Content</span></h2>
+                <p>Share your culinary journey, recipes, stories, and reviews with the community.</p>
             </div>
-        </div>
+        </section>
 
-        <!-- My Content Tab -->
-        <div id="myContent-tab" style="display: none;">
-            <div class="content-grid" id="contentGrid"></div>
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('create')">✍️ Create New</button>
+                <button class="tab-btn" onclick="showTab('myContent')">📝 My Content</button>
+            </div>
+
+            <!-- Create Tab -->
+            <div id="create-tab">
+                <div class="form-section">
+                    <form id="contentForm">
+                        <div class="form-group">
+                            <label for="contentType">Content Type</label>
+                            <select id="contentType" required>
+                                <option value="" style="color: black;">Select content type</option>
+                                <option value="recipe" style="color: black;">🍳 Recipe</option>
+                                <option value="story" style="color: black;">📖 Food Story</option>
+                                <option value="review" style="color: black;">⭐ Restaurant Review</option>
+                                <option value="tip" style="color: black;">💡 Cooking Tip</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" placeholder="Enter a catchy title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="content">Content</label>
+                            <textarea id="content" placeholder="Share your story, recipe, or review..."
+                                required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tags</label>
+                            <div class="tags-input">
+                                <div id="tagsContainer"></div>
+                                <input type="text" class="tag-input-field" id="tagInput"
+                                    placeholder="Add tags (press Enter)" onkeypress="handleTagInput(event)">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="publish-btn">Publish Content</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- My Content Tab -->
+            <div id="myContent-tab" style="display: none;">
+                <div class="content-grid" id="contentGrid"></div>
+            </div>
         </div>
     </div>
 
     <script>
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const toggle = document.getElementById('sidebarToggle');
+        const body = document.body;
+
+        toggle.addEventListener('click', () => {
+            if (sidebar.classList.contains('active')) {
+                body.classList.remove('nav-open');
+            } else {
+                body.classList.add('nav-open');
+            }
+            sidebar.classList.toggle('active');
+            toggle.innerHTML = sidebar.classList.contains('active') ? '×' : '☰';
+        });
+
         let tags = [];
         let userContent = JSON.parse(localStorage.getItem('userContent')) || [];
 
@@ -392,7 +431,7 @@
             renderTags();
         }
 
-        document.getElementById('contentForm').addEventListener('submit', function(e) {
+        document.getElementById('contentForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
             const content = {
@@ -420,7 +459,7 @@
 
         function renderContent() {
             const grid = document.getElementById('contentGrid');
-            
+
             if (userContent.length === 0) {
                 grid.innerHTML = '<div class="no-content" style="grid-column: 1/-1;"><p>No content yet. Create your first post!</p></div>';
                 return;
@@ -480,4 +519,5 @@
         renderTags();
     </script>
 </body>
+
 </html>

@@ -1,91 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodie Rewards - Foodies For Foodies</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Garamond', 'Georgia', serif;
-            color: #1a1a1a;
-            background: #f8f9fa;
-            line-height: 1.6;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 3rem;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .logo h1 {
-            font-size: 1.5rem;
-            color: #ff6b4a;
-            font-weight: 700;
-        }
-
-        .back-btn {
-            background: transparent;
-            border: none;
-            color: #ff6b4a;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
+        /* Specific Styles for Rewards Page */
         .hero {
-            padding: 4rem 3rem;
-            background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
+            background: transparent;
             text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: #f57f17;
-            margin-bottom: 1rem;
+            padding: 4rem 2rem;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem;
+            padding: 2rem;
         }
 
         .points-banner {
-            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(18, 18, 18, 0.9) 100%);
             color: white;
+            border: 1px solid var(--primary-color);
             border-radius: 15px;
-            padding: 2rem;
+            padding: 3rem;
             margin-bottom: 3rem;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(255, 107, 74, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .points-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
         }
 
         .points-display {
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-family: var(--font-heading);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
         }
 
         .points-label {
-            font-size: 1.1rem;
-            opacity: 0.95;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .section-title {
+            font-family: var(--font-heading);
             font-size: 1.8rem;
-            color: #333;
+            color: white;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid #ff6b4a;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .deals-grid {
@@ -96,25 +76,28 @@
         }
 
         .deal-card {
-            background: white;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s;
         }
 
         .deal-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .deal-header {
-            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            background: linear-gradient(135deg, #1f1f1f 0%, #2a2a2a 100%);
             color: white;
             padding: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .deal-badge {
@@ -122,10 +105,12 @@
         }
 
         .deal-discount {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--primary-color);
             padding: 0.5rem 1rem;
             border-radius: 8px;
             font-weight: 700;
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .deal-content {
@@ -133,15 +118,18 @@
         }
 
         .deal-title {
-            font-size: 1.2rem;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            color: white;
         }
 
         .deal-desc {
-            color: #666;
+            color: #ccc;
             font-size: 0.95rem;
             margin-bottom: 1rem;
+            line-height: 1.5;
         }
 
         .deal-cost {
@@ -149,43 +137,49 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 1rem;
-            border-top: 1px solid #e0e0e0;
-            margin-bottom: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+            color: #888;
+            font-size: 0.9rem;
         }
 
         .points-cost {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #ff6b4a;
+            color: var(--primary-color);
         }
 
         .redeem-btn {
-            background: #ff6b4a;
-            color: white;
-            border: none;
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
             padding: 0.75rem 1.5rem;
-            border-radius: 8px;
+            border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s;
             width: 100%;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .redeem-btn:hover:not(:disabled) {
-            background: #ff5533;
-            transform: translateY(-2px);
+            background: var(--primary-color);
+            color: #121212;
         }
 
         .redeem-btn:disabled {
-            background: #ccc;
+            border-color: #444;
+            color: #666;
             cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .redemptions-section {
-            background: white;
+            background: rgba(20, 20, 20, 0.8);
             border-radius: 15px;
             padding: 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .redemption-item {
@@ -193,67 +187,105 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
         }
 
         .redemption-item:last-child {
             border-bottom: none;
+            padding-bottom: 0;
         }
 
         .redemption-info h4 {
-            font-size: 1.1rem;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
             margin-bottom: 0.25rem;
+            color: white;
         }
 
         .redemption-date {
-            color: #999;
+            color: #888;
             font-size: 0.9rem;
         }
 
         .redemption-status {
-            background: #4caf50;
-            color: white;
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            nav { padding: 1rem 1.5rem; }
-            .hero { padding: 2rem 1.5rem; }
-            .hero h1 { font-size: 2rem; }
-            .container { padding: 1.5rem; }
+            border: 1px solid rgba(76, 175, 80, 0.3);
         }
     </style>
 </head>
+
 <body>
-    <nav>
-        <div>
-            <h1 class="logo">Foodies</h1>
+    <!-- Background Image -->
+    <img src="assets/images/category_rewards_1771292682731.png" alt="Rewards Background" class="bg-image">
+
+    <!-- Mobile Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="brand">
+            <h1>Foodies</h1>
+            <p>For Foodies</p>
         </div>
-        <a href="index.html" class="back-btn">← Back Home</a>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="fridge.html">🥑 My Fridge</a></li>
+            <li><a href="guides.html">📚 Guides & Groups</a></li>
+            <li><a href="events.html">📅 Events</a></li>
+            <li><a href="travel.html">✈️ Travel</a></li>
+            <li><a href="podcast.html">🎙️ Podcast</a></li>
+            <li><a href="polls.html">📊 Polls</a></li>
+            <li><a href="rewards.html" class="active">🏆 Rewards</a></li>
+        </ul>
+        <a href="sign-in.html" class="sign-in-btn">Sign In</a>
     </nav>
 
-    <section class="hero">
-        <h1>🎫 Foodie Rewards</h1>
-        <p>Earn points and unlock exclusive local deals</p>
-    </section>
+    <!-- Main Content -->
+    <div class="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <span class="category-badge">Earn & Redeem</span>
+                <h2>Foodie <span>Rewards</span></h2>
+                <p>Earn points for your culinary activities and unlock exclusive local deals.</p>
+            </div>
+        </section>
 
-    <div class="container">
-        <div class="points-banner">
-            <div class="points-display" id="pointsDisplay">0</div>
-            <div class="points-label">Reward Points</div>
+        <div class="container">
+            <div class="points-banner">
+                <div class="points-display" id="pointsDisplay">0</div>
+                <div class="points-label">Reward Points</div>
+            </div>
+
+            <h2 class="section-title">Exclusive Local Deals</h2>
+            <div class="deals-grid" id="dealsGrid"></div>
+
+            <h2 class="section-title">Your Redemptions</h2>
+            <div class="redemptions-section" id="redemptionsSection"></div>
         </div>
-
-        <h2 class="section-title">Exclusive Local Deals</h2>
-        <div class="deals-grid" id="dealsGrid"></div>
-
-        <h2 class="section-title">Your Redemptions</h2>
-        <div class="redemptions-section" id="redemptionsSection"></div>
     </div>
 
     <script>
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const toggle = document.getElementById('sidebarToggle');
+        const body = document.body;
+
+        toggle.addEventListener('click', () => {
+            if (sidebar.classList.contains('active')) {
+                body.classList.remove('nav-open');
+            } else {
+                body.classList.add('nav-open');
+            }
+            sidebar.classList.toggle('active');
+            toggle.innerHTML = sidebar.classList.contains('active') ? '×' : '☰';
+        });
+
         const deals = [
             {
                 emoji: '🍕',
@@ -360,7 +392,7 @@
             const redemptions = JSON.parse(localStorage.getItem('redemptions')) || [];
 
             if (redemptions.length === 0) {
-                section.innerHTML = '<p style="text-align: center; color: #999; padding: 2rem;">No redemptions yet. Redeem a deal to get started!</p>';
+                section.innerHTML = '<p style="text-align: center; color: #888; padding: 2rem;">No redemptions yet. Redeem a deal to get started!</p>';
                 return;
             }
 
@@ -371,7 +403,7 @@
                         <div class="redemption-date">${new Date(r.date).toLocaleDateString()}</div>
                     </div>
                     <div>
-                        <span style="color: #ff6b4a; font-weight: 700;">-${r.points} pts</span>
+                        <span style="color: var(--primary-color); font-weight: 700;">-${r.points} pts</span>
                         <div class="redemption-status">Completed</div>
                     </div>
                 </div>
@@ -394,4 +426,5 @@
         });
     </script>
 </body>
+
 </html>
