@@ -5,96 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>What's in My Fridge? - Foodies For Foodies</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Garamond', 'Georgia', serif;
-            color: #1a1a1a;
-            background: #fafaf9;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 3rem;
-            background: white;
-            position: relative;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .logo {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .logo h1 {
-            font-size: 1.5rem;
-            color: #ff6b4a;
-            font-weight: 700;
-        }
-
-        .logo p {
-            font-size: 0.65rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .back-btn {
-            background: transparent;
-            border: none;
-            color: #ff6b4a;
-            font-size: 1rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .back-btn:hover {
-            color: #ff5533;
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            padding: 4rem 3rem;
-            background: linear-gradient(135deg, #fff3ed 0%, #ffe8df 100%);
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: #ff6b4a;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem;
-        }
-
+        /* Fridge Specific Styles */
         .fridge-section {
             background: white;
             border-radius: 15px;
@@ -107,8 +20,9 @@
             font-size: 1.5rem;
             color: #333;
             margin-bottom: 1.5rem;
-            border-bottom: 2px solid #ff6b4a;
+            border-bottom: 2px solid var(--primary-color);
             padding-bottom: 0.75rem;
+            font-family: var(--font-heading);
         }
 
         .ingredients-grid {
@@ -127,18 +41,20 @@
             transition: all 0.3s;
             text-align: center;
             font-size: 0.9rem;
+            font-family: var(--font-body);
         }
 
         .ingredient-btn:hover {
-            border-color: #ff6b4a;
+            border-color: var(--primary-color);
             background: #fff3ed;
             transform: translateY(-2px);
         }
 
         .ingredient-btn.selected {
-            background: #ff6b4a;
-            color: white;
-            border-color: #ff6b4a;
+            background: var(--primary-color);
+            color: #121212;
+            border-color: var(--primary-color);
+            font-weight: bold;
         }
 
         .selected-ingredients {
@@ -161,20 +77,21 @@
         }
 
         .ingredient-tag {
-            background: #ff6b4a;
-            color: white;
+            background: var(--primary-color);
+            color: #121212;
             padding: 0.5rem 1rem;
             border-radius: 20px;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-size: 0.9rem;
+            font-weight: bold;
         }
 
         .ingredient-tag button {
             background: transparent;
             border: none;
-            color: white;
+            color: #121212;
             cursor: pointer;
             font-size: 1.1rem;
             padding: 0;
@@ -203,31 +120,34 @@
             align-items: center;
             justify-content: center;
             gap: 0.75rem;
+            font-family: var(--font-body);
         }
 
         .btn-action:hover {
             background: #fff;
-            border-color: #ff6b4a;
-            box-shadow: 0 4px 12px rgba(255, 107, 74, 0.2);
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
         }
 
         .btn-generate {
-            background: #ff6b4a;
-            color: white;
+            background: var(--primary-color);
+            color: #121212;
             border: none;
             padding: 1rem 2rem;
             border-radius: 8px;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn-generate:hover {
-            background: #ff5533;
+            background: #e5c14f;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 107, 74, 0.4);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
         }
 
         #fileInput,
@@ -243,7 +163,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
+            z-index: 2000;
             align-items: center;
             justify-content: center;
         }
@@ -261,12 +181,14 @@
             max-height: 80vh;
             overflow-y: auto;
             text-align: center;
+            color: #333;
         }
 
         .scan-modal h3 {
             font-size: 1.5rem;
             color: #1a1a1a;
             margin-bottom: 1rem;
+            font-family: var(--font-heading);
         }
 
         .scan-preview {
@@ -280,10 +202,11 @@
         .scan-loading {
             display: inline-block;
             padding: 1rem 2rem;
-            background: #ff6b4a;
-            color: white;
+            background: var(--primary-color);
+            color: #121212;
             border-radius: 8px;
             margin-bottom: 1rem;
+            font-weight: bold;
         }
 
         .extracted-items {
@@ -333,12 +256,12 @@
         }
 
         .btn-confirm {
-            background: #ff6b4a;
-            color: white;
+            background: var(--primary-color);
+            color: #121212;
         }
 
         .btn-confirm:hover {
-            background: #ff5533;
+            background: #e5c14f;
         }
 
         .btn-cancel {
@@ -373,7 +296,7 @@
         .recipe-image {
             width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            background: linear-gradient(135deg, #d4af37 0%, #e5c14f 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -388,6 +311,7 @@
             font-size: 1.2rem;
             color: #333;
             margin-bottom: 0.5rem;
+            font-family: var(--font-heading);
         }
 
         .recipe-time {
@@ -404,49 +328,19 @@
         }
 
         .recipe-btn {
-            background: #ff6b4a;
-            color: white;
+            background: var(--primary-color);
+            color: #121212;
             border: none;
             padding: 0.75rem 1.5rem;
             border-radius: 6px;
             cursor: pointer;
             transition: background 0.3s;
             width: 100%;
+            font-weight: bold;
         }
 
         .recipe-btn:hover {
-            background: #ff5533;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 1rem 1.5rem;
-            }
-
-            .hero {
-                padding: 2rem 1.5rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .container {
-                padding: 1.5rem;
-            }
-
-            .ingredients-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-
-            .action-buttons {
-                grid-template-columns: 1fr;
-            }
-
-            .scan-modal-content {
-                width: 95%;
-                padding: 1.5rem;
-            }
+            background: #e5c14f;
         }
 
         /* Recipe Modal */
@@ -505,7 +399,7 @@
 
         .recipe-modal-header {
             height: 300px;
-            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
+            background: linear-gradient(135deg, #d4af37 0%, #e5c14f 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -516,12 +410,14 @@
 
         .recipe-modal-body {
             padding: 2rem;
+            color: #333;
         }
 
         .recipe-modal h2 {
             font-size: 2rem;
             color: #333;
             margin-bottom: 0.5rem;
+            font-family: var(--font-heading);
         }
 
         .recipe-meta {
@@ -538,7 +434,7 @@
 
         .recipe-section h3 {
             font-size: 1.25rem;
-            color: #ff6b4a;
+            color: var(--primary-color);
             margin-bottom: 1rem;
             border-bottom: 2px solid #f0f0f0;
             padding-bottom: 0.5rem;
@@ -607,7 +503,7 @@
             height: 70px;
             border-radius: 50%;
             background: white;
-            border: 5px solid #ff6b4a;
+            border: 5px solid var(--primary-color);
             cursor: pointer;
             transition: transform 0.2s;
         }
@@ -627,498 +523,545 @@
             border-radius: 20px;
             cursor: pointer;
         }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .ingredients-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .scan-modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav>
-        <a href="index.html" class="logo">
+    <!-- Background Image -->
+    <img src="/Users/boudichmoldenhauer/.gemini/antigravity/brain/bcacb881-0569-4a81-916a-74b632590461/classy_dining_bg_1771292626751.png"
+        alt="Background" class="bg-image">
+
+    <!-- Mobile Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+    <!-- Side Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="brand">
             <h1>Foodies For Foodies</h1>
-            <p>YOUR SAVORY STORY</p>
-        </a>
-        <a href="index.html" class="back-btn">← Back Home</a>
+            <p>Your Savory Story</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="fridge.html" class="active">Fridge</a></li>
+            <li><a href="guides.html">Guides</a></li>
+            <li><a href="groups.html">Groups</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="travel.html">Travel</a></li>
+        </ul>
+        <a href="sign-in.html" class="sign-in-btn">Member Sign In</a>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <h1>🧃 What's in My Fridge?</h1>
-        <p>Tell us what ingredients you have, and our AI will suggest delicious recipes you can make today!</p>
-    </section>
-
     <!-- Main Content -->
-    <div class="container">
-        <div class="fridge-section">
-            <h2>Quick Add Your Groceries</h2>
+    <div class="main-content">
+        <!-- Hero -->
+        <section class="hero">
+            <h1
+                style="font-family: var(--font-heading); font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                🧃 What's in My Fridge?</h1>
+            <p style="font-size: 1.25rem; color: #ddd; max-width: 600px; margin: 0 auto;">Tell us what ingredients you
+                have, and our AI will suggest delicious recipes you can make today!</p>
+        </section>
 
-            <div class="action-buttons">
-                <button class="btn-action" id="uploadReceiptBtn">
-                    📸 Upload Receipt
-                </button>
-                <button class="btn-action" id="takePictureBtn">
-                    📷 Take Picture
-                </button>
-            </div>
+        <!-- Main Content -->
+        <div class="container">
+            <div class="fridge-section">
+                <h2>Quick Add Your Groceries</h2>
 
-            <input type="file" id="fileInput" accept="image/*">
-            <input type="file" id="cameraInput" accept="image/*" capture="environment">
-
-            <h2 style="margin-top: 2rem;">Or Select Your Ingredients</h2>
-
-            <div class="ingredients-grid" id="ingredientsGrid">
-                <!-- Ingredients will be populated here -->
-            </div>
-
-            <div class="selected-ingredients" id="selectedContainer" style="display: none;">
-                <h3>Selected Ingredients:</h3>
-                <div class="ingredient-tags" id="selectedTags"></div>
-            </div>
-
-            <button class="btn-generate" id="generateBtn">Generate Recipes</button>
-        </div>
-
-        <div class="fridge-section">
-            <div class="recipes-grid" id="recipesGrid">
-                <!-- Generated recipes will appear here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Scan Modal -->
-    <div class="scan-modal" id="scanModal">
-        <div class="scan-modal-content">
-            <h3 id="modalTitle">Processing Image...</h3>
-            <img id="scanPreview" class="scan-preview" style="display:none;">
-            <div id="scanLoading" class="scan-loading">🔍 Analyzing your image...</div>
-            <div id="extractedItems" class="extracted-items" style="display:none;">
-                <h4>Detected Ingredients:</h4>
-                <ul id="itemsList"></ul>
-            </div>
-            <div class="scan-modal-buttons">
-                <button class="btn-confirm" id="confirmBtn">Add All</button>
-                <button class="btn-cancel" id="cancelBtn">Cancel</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recipe Detail Modal -->
-    <div class="recipe-modal" id="recipeModal">
-        <div class="recipe-modal-content">
-            <button class="close-modal" id="closeRecipeModal">×</button>
-            <div class="recipe-modal-header" id="recipeModalHeader">
-                <span id="recipeModalEmoji">🍝</span>
-            </div>
-            <div class="recipe-modal-body">
-                <h2 id="recipeModalTitle">Recipe Name</h2>
-                <div class="recipe-meta">
-                    <span id="recipeModalTime">⏱️ 20 mins</span>
-                    <span>👤 Serves 4</span>
-                    <span>🔥 Easy</span>
+                <div class="action-buttons">
+                    <button class="btn-action" id="uploadReceiptBtn">
+                        📸 Upload Receipt
+                    </button>
+                    <button class="btn-action" id="takePictureBtn">
+                        📷 Take Picture
+                    </button>
                 </div>
-                <div class="recipe-section">
-                    <h3>Ingredients</h3>
-                    <ul class="recipe-ingredients" id="recipeModalIngredients">
-                        <!-- Ingredients populated here -->
-                    </ul>
+
+                <input type="file" id="fileInput" accept="image/*">
+                <input type="file" id="cameraInput" accept="image/*" capture="environment">
+
+                <h2 style="margin-top: 2rem;">Or Select Your Ingredients</h2>
+
+                <div class="ingredients-grid" id="ingredientsGrid">
+                    <!-- Ingredients will be populated here -->
                 </div>
-                <div class="recipe-section">
-                    <h3>Instructions</h3>
-                    <div class="recipe-instructions" id="recipeModalInstructions">
-                        <!-- Instructions populated here -->
+
+                <div class="selected-ingredients" id="selectedContainer" style="display: none;">
+                    <h3>Selected Ingredients:</h3>
+                    <div class="ingredient-tags" id="selectedTags"></div>
+                </div>
+
+                <button class="btn-generate" id="generateBtn">Generate Recipes</button>
+            </div>
+
+            <div class="fridge-section">
+                <div class="recipes-grid" id="recipesGrid">
+                    <!-- Generated recipes will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Scan Modal -->
+        <div class="scan-modal" id="scanModal">
+            <div class="scan-modal-content">
+                <h3 id="modalTitle">Processing Image...</h3>
+                <img id="scanPreview" class="scan-preview" style="display:none;">
+                <div id="scanLoading" class="scan-loading">🔍 Analyzing your image...</div>
+                <div id="extractedItems" class="extracted-items" style="display:none;">
+                    <h4>Detected Ingredients:</h4>
+                    <ul id="itemsList"></ul>
+                </div>
+                <div class="scan-modal-buttons">
+                    <button class="btn-confirm" id="confirmBtn">Add All</button>
+                    <button class="btn-cancel" id="cancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recipe Detail Modal -->
+        <div class="recipe-modal" id="recipeModal">
+            <div class="recipe-modal-content">
+                <button class="close-modal" id="closeRecipeModal">×</button>
+                <div class="recipe-modal-header" id="recipeModalHeader">
+                    <span id="recipeModalEmoji">🍝</span>
+                </div>
+                <div class="recipe-modal-body">
+                    <h2 id="recipeModalTitle">Recipe Name</h2>
+                    <div class="recipe-meta">
+                        <span id="recipeModalTime">⏱️ 20 mins</span>
+                        <span>👤 Serves 4</span>
+                        <span>🔥 Easy</span>
+                    </div>
+                    <div class="recipe-section">
+                        <h3>Ingredients</h3>
+                        <ul class="recipe-ingredients" id="recipeModalIngredients">
+                            <!-- Ingredients populated here -->
+                        </ul>
+                    </div>
+                    <div class="recipe-section">
+                        <h3>Instructions</h3>
+                        <div class="recipe-instructions" id="recipeModalInstructions">
+                            <!-- Instructions populated here -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Camera Modal -->
-    <div class="camera-modal" id="cameraModal">
-        <button class="btn-close-camera" id="closeCameraBtn">Close Camera</button>
-        <video id="cameraVideo" autoplay playsinline></video>
-        <div class="camera-controls">
-            <button class="btn-capture" id="captureBtn"></button>
+        <!-- Camera Modal -->
+        <div class="camera-modal" id="cameraModal">
+            <button class="btn-close-camera" id="closeCameraBtn">Close Camera</button>
+            <video id="cameraVideo" autoplay playsinline></video>
+            <div class="camera-controls">
+                <button class="btn-capture" id="captureBtn"></button>
+            </div>
+            <canvas id="cameraCanvas" style="display: none;"></canvas>
         </div>
-        <canvas id="cameraCanvas" style="display: none;"></canvas>
-    </div>
 
-    <script>
-        const ingredients = [
-            '🍗 Chicken',
-            '🥩 Beef',
-            '🐟 Fish',
-            '🥚 Eggs',
-            '🧀 Cheese',
-            '🥛 Milk',
-            '🍅 Tomato',
-            '🥬 Lettuce',
-            '🥔 Potato',
-            '🧅 Onion',
-            '🧄 Garlic',
-            '🥕 Carrot',
-            '🫒 Olive Oil',
-            '🍞 Bread',
-            '🍝 Pasta',
-            '🍚 Rice',
-            '🌶️ Pepper',
-            '🧂 Salt'
-        ];
+        <script>
+            const ingredients = [
+                '🍗 Chicken',
+                '🥩 Beef',
+                '🐟 Fish',
+                '🥚 Eggs',
+                '🧀 Cheese',
+                '🥛 Milk',
+                '🍅 Tomato',
+                '🥬 Lettuce',
+                '🥔 Potato',
+                '🧅 Onion',
+                '🧄 Garlic',
+                '🥕 Carrot',
+                '🫒 Olive Oil',
+                '🍞 Bread',
+                '🍝 Pasta',
+                '🍚 Rice',
+                '🌶️ Pepper',
+                '🧂 Salt'
+            ];
 
-        const sampleRecipes = [
-            {
-                name: 'Classic Pasta Carbonara',
-                time: '20 mins',
-                emoji: '🍝',
-                desc: 'Creamy Italian pasta with eggs, cheese, and pancetta',
-                ingredients: [
-                    '400g Spaghetti',
-                    '150g Pancetta or Guanciale',
-                    '4 Large Eggs',
-                    '100g Pecorino Romano',
-                    'Black Pepper',
-                    'Salt'
-                ],
-                instructions: [
-                    'Boil water in a large pot, salt it generously.',
-                    'Cook pasta until al dente.',
-                    'While pasta cooks, fry pancetta until crisp.',
-                    'Whisk eggs and cheese in a bowl with pepper.',
-                    'Drain pasta, reserving some pasta water.',
-                    'Mix pasta with pancetta, remove from heat.',
-                    'Quickly stir in egg mixture to create creamy sauce.',
-                    'Add pasta water if needed for consistency.'
-                ]
-            },
-            {
-                name: 'Grilled Chicken Salad',
-                time: '30 mins',
-                emoji: '🥗',
-                desc: 'Healthy and delicious grilled chicken with fresh veggies',
-                ingredients: [
-                    '2 Chicken Breasts',
-                    'Mixed Salad Greens',
-                    'Cherry Tomatoes',
-                    'Cucumber',
-                    'Red Onion',
-                    'Olive Oil',
-                    'Lemon Juice'
-                ],
-                instructions: [
-                    'Season chicken with salt, pepper, and herbs.',
-                    'Grill chicken for 6-7 minutes per side until cooked.',
-                    'Chop vegetables and mix with salad greens.',
-                    'Slice grilled chicken and place on top.',
-                    'Drizzle with olive oil and lemon juice dressing.'
-                ]
-            },
-            {
-                name: 'Tomato Soup',
-                time: '25 mins',
-                emoji: '🍲',
-                desc: 'Warm and comforting homemade tomato soup',
-                ingredients: [
-                    '1kg Ripe Tomatoes',
-                    '1 Onion',
-                    '2 Garlic Cloves',
-                    'Vegetable Broth',
-                    'Fresh Basil',
-                    'Cream (optional)'
-                ],
-                instructions: [
-                    'Sauté chopped onion and garlic until soft.',
-                    'Add chopped tomatoes and cook for 10 minutes.',
-                    'Pour in broth and simmer for 15 minutes.',
-                    'Blend until smooth.',
-                    'Stir in fresh basil and cream before serving.'
-                ]
-            },
-            {
-                name: 'Beef Stir Fry',
-                time: '35 mins',
-                emoji: '🍳',
-                desc: 'Quick Asian-inspired beef with vegetables',
-                ingredients: [
-                    '500g Beef Strips',
-                    'Broccoli Florets',
-                    'Bell Peppers',
-                    'Soy Sauce',
-                    'Ginger',
-                    'Garlic',
-                    'Sesame Oil'
-                ],
-                instructions: [
-                    'Marinate beef in soy sauce, ginger, and garlic.',
-                    'Stir fry beef in hot wok for 2-3 minutes.',
-                    'Remove beef, add vegetables to wok.',
-                    'Stir fry veggies until crisp-tender.',
-                    'Return beef to pan, toss effectively.',
-                    'Serve over steamed rice.'
-                ]
-            },
-            {
-                name: 'Garlic Bread',
-                time: '15 mins',
-                emoji: '🥖',
-                desc: 'Crispy bread with garlic, oil, and herbs',
-                ingredients: [
-                    '1 Loaf French Bread',
-                    '1/2 cup Butter, softened',
-                    '3 Garlic Cloves, minced',
-                    'Parsley',
-                    'Parmesan Cheese'
-                ],
-                instructions: [
-                    'Slice bread lengthwise.',
-                    'Mix butter, garlic, and parsley.',
-                    'Spread mixture generously on bread.',
-                    'Sprinkle with parmesan cheese.',
-                    'Bake at 400°F (200°C) for 10-12 minutes until golden.'
-                ]
-            },
-            {
-                name: 'Omelette',
-                time: '10 mins',
-                emoji: '🍳',
-                desc: 'Fluffy eggs with cheese and veggies',
-                ingredients: [
-                    '3 Eggs',
-                    'Cheese (Cheddar or Swiss)',
-                    'Spinach',
-                    'Mushrooms',
-                    'Butter',
-                    'Salt & Pepper'
-                ],
-                instructions: [
-                    'Whisk eggs with salt and pepper.',
-                    'Melt butter in non-stick pan.',
-                    'Pour in eggs, let set slightly.',
-                    'Add cheese and fillings to one side.',
-                    'Fold over and cook until cheese melts.'
-                ]
-            }
-        ];
+            const sampleRecipes = [
+                {
+                    name: 'Classic Pasta Carbonara',
+                    time: '20 mins',
+                    emoji: '🍝',
+                    desc: 'Creamy Italian pasta with eggs, cheese, and pancetta',
+                    ingredients: [
+                        '400g Spaghetti',
+                        '150g Pancetta or Guanciale',
+                        '4 Large Eggs',
+                        '100g Pecorino Romano',
+                        'Black Pepper',
+                        'Salt'
+                    ],
+                    instructions: [
+                        'Boil water in a large pot, salt it generously.',
+                        'Cook pasta until al dente.',
+                        'While pasta cooks, fry pancetta until crisp.',
+                        'Whisk eggs and cheese in a bowl with pepper.',
+                        'Drain pasta, reserving some pasta water.',
+                        'Mix pasta with pancetta, remove from heat.',
+                        'Quickly stir in egg mixture to create creamy sauce.',
+                        'Add pasta water if needed for consistency.'
+                    ]
+                },
+                {
+                    name: 'Grilled Chicken Salad',
+                    time: '30 mins',
+                    emoji: '🥗',
+                    desc: 'Healthy and delicious grilled chicken with fresh veggies',
+                    ingredients: [
+                        '2 Chicken Breasts',
+                        'Mixed Salad Greens',
+                        'Cherry Tomatoes',
+                        'Cucumber',
+                        'Red Onion',
+                        'Olive Oil',
+                        'Lemon Juice'
+                    ],
+                    instructions: [
+                        'Season chicken with salt, pepper, and herbs.',
+                        'Grill chicken for 6-7 minutes per side until cooked.',
+                        'Chop vegetables and mix with salad greens.',
+                        'Slice grilled chicken and place on top.',
+                        'Drizzle with olive oil and lemon juice dressing.'
+                    ]
+                },
+                {
+                    name: 'Tomato Soup',
+                    time: '25 mins',
+                    emoji: '🍲',
+                    desc: 'Warm and comforting homemade tomato soup',
+                    ingredients: [
+                        '1kg Ripe Tomatoes',
+                        '1 Onion',
+                        '2 Garlic Cloves',
+                        'Vegetable Broth',
+                        'Fresh Basil',
+                        'Cream (optional)'
+                    ],
+                    instructions: [
+                        'Sauté chopped onion and garlic until soft.',
+                        'Add chopped tomatoes and cook for 10 minutes.',
+                        'Pour in broth and simmer for 15 minutes.',
+                        'Blend until smooth.',
+                        'Stir in fresh basil and cream before serving.'
+                    ]
+                },
+                {
+                    name: 'Beef Stir Fry',
+                    time: '35 mins',
+                    emoji: '🍳',
+                    desc: 'Quick Asian-inspired beef with vegetables',
+                    ingredients: [
+                        '500g Beef Strips',
+                        'Broccoli Florets',
+                        'Bell Peppers',
+                        'Soy Sauce',
+                        'Ginger',
+                        'Garlic',
+                        'Sesame Oil'
+                    ],
+                    instructions: [
+                        'Marinate beef in soy sauce, ginger, and garlic.',
+                        'Stir fry beef in hot wok for 2-3 minutes.',
+                        'Remove beef, add vegetables to wok.',
+                        'Stir fry veggies until crisp-tender.',
+                        'Return beef to pan, toss effectively.',
+                        'Serve over steamed rice.'
+                    ]
+                },
+                {
+                    name: 'Garlic Bread',
+                    time: '15 mins',
+                    emoji: '🥖',
+                    desc: 'Crispy bread with garlic, oil, and herbs',
+                    ingredients: [
+                        '1 Loaf French Bread',
+                        '1/2 cup Butter, softened',
+                        '3 Garlic Cloves, minced',
+                        'Parsley',
+                        'Parmesan Cheese'
+                    ],
+                    instructions: [
+                        'Slice bread lengthwise.',
+                        'Mix butter, garlic, and parsley.',
+                        'Spread mixture generously on bread.',
+                        'Sprinkle with parmesan cheese.',
+                        'Bake at 400°F (200°C) for 10-12 minutes until golden.'
+                    ]
+                },
+                {
+                    name: 'Omelette',
+                    time: '10 mins',
+                    emoji: '🍳',
+                    desc: 'Fluffy eggs with cheese and veggies',
+                    ingredients: [
+                        '3 Eggs',
+                        'Cheese (Cheddar or Swiss)',
+                        'Spinach',
+                        'Mushrooms',
+                        'Butter',
+                        'Salt & Pepper'
+                    ],
+                    instructions: [
+                        'Whisk eggs with salt and pepper.',
+                        'Melt butter in non-stick pan.',
+                        'Pour in eggs, let set slightly.',
+                        'Add cheese and fillings to one side.',
+                        'Fold over and cook until cheese melts.'
+                    ]
+                }
+            ];
 
-        const ingredientsGrid = document.getElementById('ingredientsGrid');
-        const generateBtn = document.getElementById('generateBtn');
-        const recipesGrid = document.getElementById('recipesGrid');
-        const selectedContainer = document.getElementById('selectedContainer');
-        const selectedTags = document.getElementById('selectedTags');
-        const selectedSet = new Set();
+            const ingredientsGrid = document.getElementById('ingredientsGrid');
+            const generateBtn = document.getElementById('generateBtn');
+            const recipesGrid = document.getElementById('recipesGrid');
+            const selectedContainer = document.getElementById('selectedContainer');
+            const selectedTags = document.getElementById('selectedTags');
+            const selectedSet = new Set();
 
-        // Scan modal elements
-        const scanModal = document.getElementById('scanModal');
-        const uploadReceiptBtn = document.getElementById('uploadReceiptBtn');
-        const takePictureBtn = document.getElementById('takePictureBtn');
-        const fileInput = document.getElementById('fileInput');
-        const cameraInput = document.getElementById('cameraInput');
-        const scanPreview = document.getElementById('scanPreview');
-        const scanLoading = document.getElementById('scanLoading');
-        const extractedItems = document.getElementById('extractedItems');
-        const itemsList = document.getElementById('itemsList');
-        const confirmBtn = document.getElementById('confirmBtn');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const modalTitle = document.getElementById('modalTitle');
+            // Scan modal elements
+            const scanModal = document.getElementById('scanModal');
+            const uploadReceiptBtn = document.getElementById('uploadReceiptBtn');
+            const takePictureBtn = document.getElementById('takePictureBtn');
+            const fileInput = document.getElementById('fileInput');
+            const cameraInput = document.getElementById('cameraInput');
+            const scanPreview = document.getElementById('scanPreview');
+            const scanLoading = document.getElementById('scanLoading');
+            const extractedItems = document.getElementById('extractedItems');
+            const itemsList = document.getElementById('itemsList');
+            const confirmBtn = document.getElementById('confirmBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const modalTitle = document.getElementById('modalTitle');
 
-        // Button listeners for upload/camera
-        // Camera elements
-        const cameraModal = document.getElementById('cameraModal');
-        const cameraVideo = document.getElementById('cameraVideo');
-        const captureBtn = document.getElementById('captureBtn');
-        const closeCameraBtn = document.getElementById('closeCameraBtn');
-        const cameraCanvas = document.getElementById('cameraCanvas');
-        let stream = null;
+            // Button listeners for upload/camera
+            // Camera elements
+            const cameraModal = document.getElementById('cameraModal');
+            const cameraVideo = document.getElementById('cameraVideo');
+            const captureBtn = document.getElementById('captureBtn');
+            const closeCameraBtn = document.getElementById('closeCameraBtn');
+            const cameraCanvas = document.getElementById('cameraCanvas');
+            let stream = null;
 
-        // Recipe Modal elements
-        const recipeModal = document.getElementById('recipeModal');
-        const closeRecipeModal = document.getElementById('closeRecipeModal');
-        const recipeModalHeader = document.getElementById('recipeModalHeader');
-        const recipeModalEmoji = document.getElementById('recipeModalEmoji');
-        const recipeModalTitle = document.getElementById('recipeModalTitle');
-        const recipeModalTime = document.getElementById('recipeModalTime');
-        const recipeModalIngredients = document.getElementById('recipeModalIngredients');
-        const recipeModalInstructions = document.getElementById('recipeModalInstructions');
+            // Recipe Modal elements
+            const recipeModal = document.getElementById('recipeModal');
+            const closeRecipeModal = document.getElementById('closeRecipeModal');
+            const recipeModalHeader = document.getElementById('recipeModalHeader');
+            const recipeModalEmoji = document.getElementById('recipeModalEmoji');
+            const recipeModalTitle = document.getElementById('recipeModalTitle');
+            const recipeModalTime = document.getElementById('recipeModalTime');
+            const recipeModalIngredients = document.getElementById('recipeModalIngredients');
+            const recipeModalInstructions = document.getElementById('recipeModalInstructions');
 
-        // Button listeners for upload/camera
-        uploadReceiptBtn.addEventListener('click', () => fileInput.click());
-        takePictureBtn.addEventListener('click', startCamera);
-        closeCameraBtn.addEventListener('click', stopCamera);
-        captureBtn.addEventListener('click', takePhoto);
+            // Button listeners for upload/camera
+            uploadReceiptBtn.addEventListener('click', () => fileInput.click());
+            takePictureBtn.addEventListener('click', startCamera);
+            closeCameraBtn.addEventListener('click', stopCamera);
+            captureBtn.addEventListener('click', takePhoto);
 
-        fileInput.addEventListener('change', (e) => processImage(e, 'receipt'));
-        // cameraInput.addEventListener('change', (e) => processImage(e, 'camera')); // Deprecated in favor of getUserMedia
+            fileInput.addEventListener('change', (e) => processImage(e, 'receipt'));
+            // cameraInput.addEventListener('change', (e) => processImage(e, 'camera')); // Deprecated in favor of getUserMedia
 
-        cancelBtn.addEventListener('click', closeScanModal);
-        closeRecipeModal.addEventListener('click', () => {
-            recipeModal.classList.remove('active');
-        });
-
-        // Close modals on outside click
-        window.onclick = function (event) {
-            if (event.target == recipeModal) {
+            cancelBtn.addEventListener('click', closeScanModal);
+            closeRecipeModal.addEventListener('click', () => {
                 recipeModal.classList.remove('active');
-            }
-        }
-
-        async function startCamera() {
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                cameraVideo.srcObject = stream;
-                cameraModal.classList.add('active');
-            } catch (err) {
-                console.error("Error accessing camera:", err);
-                alert("Could not access camera. Please ensure you have granted camera permissions.");
-            }
-        }
-
-        function stopCamera() {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-                stream = null;
-            }
-            cameraModal.classList.remove('active');
-        }
-
-        function takePhoto() {
-            // Set canvas dimensions to match video
-            cameraCanvas.width = cameraVideo.videoWidth;
-            cameraCanvas.height = cameraVideo.videoHeight;
-
-            // Draw video frame to canvas
-            const context = cameraCanvas.getContext('2d');
-            context.drawImage(cameraVideo, 0, 0, cameraCanvas.width, cameraCanvas.height);
-
-            // Convert to data URL
-            const dataUrl = cameraCanvas.toDataURL('image/png');
-
-            // Close camera and process image
-            stopCamera();
-            openScanModal(dataUrl, 'camera');
-        }
-
-        cancelBtn.addEventListener('click', closeScanModal);
-
-        function processImage(event, type) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                openScanModal(e.target.result, type);
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function openScanModal(imageSrc, type) {
-            scanModal.classList.add('active');
-            scanPreview.src = imageSrc;
-            scanPreview.style.display = 'block';
-            modalTitle.textContent = type === 'receipt' ? 'Scanning Receipt...' : 'Processing Photo...';
-
-            // Simulate scanning delay
-            setTimeout(() => {
-                simulateScan(type);
-            }, 1500);
-        }
-
-        function simulateScan(type) {
-            const mockReceipts = {
-                receipt: ['🥕 Carrots', '🧅 Onions', '🥔 Potatoes', '🥬 Spinach', '🍅 Tomatoes', '🧄 Garlic', '🥒 Cucumbers', '🫒 Olive Oil'],
-                camera: ['🍗 Chicken', '🧀 Cheese', '🍞 Bread', '🥬 Lettuce', '🍅 Tomato', '🥒 Pickles', '🧅 Onion', '🧈 Butter']
-            };
-
-            const detectedItems = mockReceipts[type] || mockReceipts.receipt;
-
-            scanLoading.style.display = 'none';
-            extractedItems.style.display = 'block';
-            itemsList.innerHTML = '';
-
-            detectedItems.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                itemsList.appendChild(li);
             });
 
-            // Store items for confirmation
-            scanModal.detectedItems = detectedItems;
-        }
+            // Close modals on outside click
+            window.onclick = function (event) {
+                if (event.target == recipeModal) {
+                    recipeModal.classList.remove('active');
+                }
+            }
 
-        function closeScanModal() {
-            scanModal.classList.remove('active');
-            scanPreview.style.display = 'none';
-            scanLoading.style.display = 'block';
-            extractedItems.style.display = 'none';
-            itemsList.innerHTML = '';
-            fileInput.value = '';
-            cameraInput.value = '';
-        }
+            async function startCamera() {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                    cameraVideo.srcObject = stream;
+                    cameraModal.classList.add('active');
+                } catch (err) {
+                    console.error("Error accessing camera:", err);
+                    alert("Could not access camera. Please ensure you have granted camera permissions.");
+                }
+            }
 
-        confirmBtn.addEventListener('click', () => {
-            if (scanModal.detectedItems) {
-                scanModal.detectedItems.forEach(item => {
-                    selectedSet.add(item);
+            function stopCamera() {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                }
+                cameraModal.classList.remove('active');
+            }
+
+            function takePhoto() {
+                // Set canvas dimensions to match video
+                cameraCanvas.width = cameraVideo.videoWidth;
+                cameraCanvas.height = cameraVideo.videoHeight;
+
+                // Draw video frame to canvas
+                const context = cameraCanvas.getContext('2d');
+                context.drawImage(cameraVideo, 0, 0, cameraCanvas.width, cameraCanvas.height);
+
+                // Convert to data URL
+                const dataUrl = cameraCanvas.toDataURL('image/png');
+
+                // Close camera and process image
+                stopCamera();
+                openScanModal(dataUrl, 'camera');
+            }
+
+            cancelBtn.addEventListener('click', closeScanModal);
+
+            function processImage(event, type) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    openScanModal(e.target.result, type);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            function openScanModal(imageSrc, type) {
+                scanModal.classList.add('active');
+                scanPreview.src = imageSrc;
+                scanPreview.style.display = 'block';
+                modalTitle.textContent = type === 'receipt' ? 'Scanning Receipt...' : 'Processing Photo...';
+
+                // Simulate scanning delay
+                setTimeout(() => {
+                    simulateScan(type);
+                }, 1500);
+            }
+
+            function simulateScan(type) {
+                const mockReceipts = {
+                    receipt: ['🥕 Carrots', '🧅 Onions', '🥔 Potatoes', '🥬 Spinach', '🍅 Tomatoes', '🧄 Garlic', '🥒 Cucumbers', '🫒 Olive Oil'],
+                    camera: ['🍗 Chicken', '🧀 Cheese', '🍞 Bread', '🥬 Lettuce', '🍅 Tomato', '🥒 Pickles', '🧅 Onion', '🧈 Butter']
+                };
+
+                const detectedItems = mockReceipts[type] || mockReceipts.receipt;
+
+                scanLoading.style.display = 'none';
+                extractedItems.style.display = 'block';
+                itemsList.innerHTML = '';
+
+                detectedItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    itemsList.appendChild(li);
                 });
-                renderSelectedTags();
-                closeScanModal();
-            }
-        });
 
-        // Populate ingredients
-        ingredients.forEach(ingredient => {
-            const btn = document.createElement('button');
-            btn.className = 'ingredient-btn';
-            btn.textContent = ingredient;
-            btn.addEventListener('click', function () {
-                this.classList.toggle('selected');
-                updateSelected(ingredient);
+                // Store items for confirmation
+                scanModal.detectedItems = detectedItems;
+            }
+
+            function closeScanModal() {
+                scanModal.classList.remove('active');
+                scanPreview.style.display = 'none';
+                scanLoading.style.display = 'block';
+                extractedItems.style.display = 'none';
+                itemsList.innerHTML = '';
+                fileInput.value = '';
+                cameraInput.value = '';
+            }
+
+            confirmBtn.addEventListener('click', () => {
+                if (scanModal.detectedItems) {
+                    scanModal.detectedItems.forEach(item => {
+                        selectedSet.add(item);
+                    });
+                    renderSelectedTags();
+                    closeScanModal();
+                }
             });
-            ingredientsGrid.appendChild(btn);
-        });
 
-        function updateSelected(ingredient) {
-            if (selectedSet.has(ingredient)) {
-                selectedSet.delete(ingredient);
-            } else {
-                selectedSet.add(ingredient);
-            }
-            renderSelectedTags();
-        }
+            // Populate ingredients
+            ingredients.forEach(ingredient => {
+                const btn = document.createElement('button');
+                btn.className = 'ingredient-btn';
+                btn.textContent = ingredient;
+                btn.addEventListener('click', function () {
+                    this.classList.toggle('selected');
+                    updateSelected(ingredient);
+                });
+                ingredientsGrid.appendChild(btn);
+            });
 
-        function renderSelectedTags() {
-            selectedTags.innerHTML = '';
-            if (selectedSet.size === 0) {
-                selectedContainer.style.display = 'none';
-                return;
+            function updateSelected(ingredient) {
+                if (selectedSet.has(ingredient)) {
+                    selectedSet.delete(ingredient);
+                } else {
+                    selectedSet.add(ingredient);
+                }
+                renderSelectedTags();
             }
-            selectedContainer.style.display = 'block';
-            selectedSet.forEach(ingredient => {
-                const tag = document.createElement('div');
-                tag.className = 'ingredient-tag';
-                tag.innerHTML = `
+
+            function renderSelectedTags() {
+                selectedTags.innerHTML = '';
+                if (selectedSet.size === 0) {
+                    selectedContainer.style.display = 'none';
+                    return;
+                }
+                selectedContainer.style.display = 'block';
+                selectedSet.forEach(ingredient => {
+                    const tag = document.createElement('div');
+                    tag.className = 'ingredient-tag';
+                    tag.innerHTML = `
                     ${ingredient}
                     <button onclick="event.stopPropagation()">×</button>
                 `;
-                tag.querySelector('button').addEventListener('click', () => {
-                    updateSelected(ingredient);
-                    document.querySelectorAll('.ingredient-btn').forEach(btn => {
-                        if (btn.textContent === ingredient) {
-                            btn.classList.remove('selected');
-                        }
+                    tag.querySelector('button').addEventListener('click', () => {
+                        updateSelected(ingredient);
+                        document.querySelectorAll('.ingredient-btn').forEach(btn => {
+                            if (btn.textContent === ingredient) {
+                                btn.classList.remove('selected');
+                            }
+                        });
                     });
+                    selectedTags.appendChild(tag);
                 });
-                selectedTags.appendChild(tag);
-            });
-        }
-
-        generateBtn.addEventListener('click', function () {
-            if (selectedSet.size === 0) {
-                alert('Please select at least one ingredient!');
-                return;
             }
 
-            recipesGrid.innerHTML = '';
-            sampleRecipes.forEach(recipe => {
-                const card = document.createElement('div');
-                card.className = 'recipe-card';
-                card.innerHTML = `
+            generateBtn.addEventListener('click', function () {
+                if (selectedSet.size === 0) {
+                    alert('Please select at least one ingredient!');
+                    return;
+                }
+
+                recipesGrid.innerHTML = '';
+                sampleRecipes.forEach(recipe => {
+                    const card = document.createElement('div');
+                    card.className = 'recipe-card';
+                    card.innerHTML = `
                     <div class="recipe-image">${recipe.emoji}</div>
                     <div class="recipe-content">
                         <h3>${recipe.name}</h3>
@@ -1127,27 +1070,27 @@
                         <button class="recipe-btn" onclick="openRecipeModal(${JSON.stringify(recipe.name).replace(/"/g, '&quot;')})">View Recipe</button>
                     </div>
                 `;
-                recipesGrid.appendChild(card);
+                    recipesGrid.appendChild(card);
+                });
             });
-        });
 
-        function openRecipeModal(recipeName) {
-            const recipe = sampleRecipes.find(r => r.name === recipeName);
-            if (!recipe) return;
+            function openRecipeModal(recipeName) {
+                const recipe = sampleRecipes.find(r => r.name === recipeName);
+                if (!recipe) return;
 
-            recipeModalEmoji.textContent = recipe.emoji;
-            recipeModalTitle.textContent = recipe.name;
-            recipeModalTime.textContent = `⏱️ ${recipe.time}`;
+                recipeModalEmoji.textContent = recipe.emoji;
+                recipeModalTitle.textContent = recipe.name;
+                recipeModalTime.textContent = `⏱️ ${recipe.time}`;
 
-            // Populate ingredients
-            recipeModalIngredients.innerHTML = recipe.ingredients.map(ing => `<li>✅ ${ing}</li>`).join('');
+                // Populate ingredients
+                recipeModalIngredients.innerHTML = recipe.ingredients.map(ing => `<li>✅ ${ing}</li>`).join('');
 
-            // Populate instructions
-            recipeModalInstructions.innerHTML = `<ol>${recipe.instructions.map(inst => `<li>${inst}</li>`).join('')}</ol>`;
+                // Populate instructions
+                recipeModalInstructions.innerHTML = `<ol>${recipe.instructions.map(inst => `<li>${inst}</li>`).join('')}</ol>`;
 
-            recipeModal.classList.add('active');
-        }
-    </script>
+                recipeModal.classList.add('active');
+            }
+        </script>
 </body>
 
 </html>
