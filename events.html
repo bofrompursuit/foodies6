@@ -1,122 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events & Meetups - Foodies For Foodies</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Garamond', 'Georgia', serif;
-            color: #1a1a1a;
-            background: #f8f9fa;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 3rem;
-            background: white;
-            position: relative;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .logo {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .logo h1 {
-            font-size: 1.5rem;
-            color: #ff6b4a;
-            font-weight: 700;
-        }
-
-        .logo p {
-            font-size: 0.65rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .back-btn {
-            background: transparent;
-            border: none;
-            color: #ff6b4a;
-            font-size: 1rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .back-btn:hover {
-            color: #ff5533;
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            padding: 4rem 3rem;
-            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: #ff6b4a;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem;
-        }
-
+        /* Events Specific Styles */
         .filters {
             display: flex;
             gap: 1rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .filter-btn {
-            background: white;
-            border: 2px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--text-color);
             padding: 0.75rem 1.5rem;
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.95rem;
             font-weight: 600;
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .filter-btn:hover,
         .filter-btn.active {
-            background: #ff6b4a;
-            color: white;
-            border-color: #ff6b4a;
+            background: var(--primary-color);
+            color: #121212;
         }
 
         .events-grid {
@@ -126,42 +44,46 @@
         }
 
         .event-card {
-            background: white;
+            background: #222;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .event-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+            border-color: var(--primary-color);
         }
 
         .event-header {
             padding: 1.5rem;
-            background: linear-gradient(135deg, #ff6b4a 0%, #ff8a6b 100%);
-            color: white;
+            background: linear-gradient(135deg, #d4af37 0%, #b4932a 100%);
+            color: #121212;
         }
 
         .event-date {
             font-size: 0.9rem;
             opacity: 0.9;
             margin-bottom: 0.5rem;
+            font-weight: bold;
         }
 
         .event-title {
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            font-family: var(--font-heading);
         }
 
         .event-type {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.2);
             padding: 0.25rem 0.75rem;
             border-radius: 15px;
             font-size: 0.8rem;
+            color: white;
         }
 
         .event-content {
@@ -173,50 +95,53 @@
             align-items: center;
             gap: 0.75rem;
             margin-bottom: 1rem;
-            color: #666;
+            color: #ccc;
             font-size: 0.95rem;
         }
 
         .event-detail strong {
-            color: #333;
+            color: var(--primary-color);
         }
 
         .event-description {
-            color: #666;
+            color: #ddd;
             font-size: 0.95rem;
             line-height: 1.5;
             margin-bottom: 1.5rem;
         }
 
         .event-attending {
-            background: #f0f0f0;
+            background: rgba(255, 255, 255, 0.05);
             padding: 0.75rem;
             border-radius: 8px;
             margin-bottom: 1.5rem;
             font-size: 0.9rem;
-            color: #666;
+            color: #ccc;
         }
 
         .join-btn {
-            background: #ff6b4a;
-            color: white;
-            border: none;
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
             padding: 0.75rem 1.5rem;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
             width: 100%;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .join-btn:hover {
-            background: #ff5533;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 74, 0.3);
+            background: var(--primary-color);
+            color: #121212;
         }
 
         .join-btn.joined {
             background: #4caf50;
+            border-color: #4caf50;
+            color: white;
         }
 
         .join-btn.joined:hover {
@@ -228,65 +153,56 @@
             padding: 3rem;
             color: #999;
         }
-
-        .no-events p {
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 1rem 1.5rem;
-            }
-
-            .hero {
-                padding: 2rem 1.5rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .container {
-                padding: 1.5rem;
-            }
-
-            .filters {
-                justify-content: center;
-            }
-
-            .events-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav>
-        <a href="index.html" class="logo">
+    <!-- Background Image -->
+    <img src="assets/images/category_meetups_1771292709470.png" alt="Background" class="bg-image">
+
+    <!-- Mobile Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+    <!-- Side Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="brand">
             <h1>Foodies For Foodies</h1>
-            <p>YOUR SAVORY STORY</p>
-        </a>
-        <a href="index.html" class="back-btn">← Back Home</a>
+            <p>Your Savory Story</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="fridge.html">Fridge</a></li>
+            <li><a href="guides.html">Guides</a></li>
+            <li><a href="groups.html">Groups</a></li>
+            <li><a href="events.html" class="active">Events</a></li>
+            <li><a href="travel.html">Travel</a></li>
+        </ul>
+        <a href="sign-in.html" class="sign-in-btn">Member Sign In</a>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <h1>📅 Foodie Events & Meetups</h1>
-        <p>Join local food enthusiasts for cooking classes, tastings, and culinary adventures!</p>
-    </section>
-
     <!-- Main Content -->
-    <div class="container">
-        <div class="filters">
-            <button class="filter-btn active" data-filter="all">All Events</button>
-            <button class="filter-btn" data-filter="cooking">Cooking Classes</button>
-            <button class="filter-btn" data-filter="tasting">Tastings</button>
-            <button class="filter-btn" data-filter="social">Social Meetups</button>
-        </div>
+    <div class="main-content">
+        <!-- Hero -->
+        <section class="hero">
+            <h1
+                style="font-family: var(--font-heading); font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                📅 Foodie Events & Meetups</h1>
+            <p
+                style="font-size: 1.25rem; color: #ddd; max-width: 600px; margin: 0 auto; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                Join local food enthusiasts for cooking classes, tastings, and culinary adventures!</p>
+        </section>
 
-        <div class="events-grid" id="eventsGrid">
-            <!-- Events will be populated here -->
+        <div class="features" style="padding-top: 0;"> <!-- Reusing container/padding style -->
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All Events</button>
+                <button class="filter-btn" data-filter="cooking">Cooking Classes</button>
+                <button class="filter-btn" data-filter="tasting">Tastings</button>
+                <button class="filter-btn" data-filter="social">Social Meetups</button>
+            </div>
+
+            <div class="events-grid" id="eventsGrid">
+                <!-- Events will be populated here -->
+            </div>
         </div>
     </div>
 
@@ -378,7 +294,7 @@
                 const card = document.createElement('div');
                 card.className = 'event-card';
                 const isJoined = joinedEvents.has(event.id);
-                
+
                 card.innerHTML = `
                     <div class="event-header">
                         <div class="event-date">📅 ${event.date}</div>
@@ -405,7 +321,7 @@
                     </div>
                 `;
 
-                card.querySelector('.join-btn').addEventListener('click', function() {
+                card.querySelector('.join-btn').addEventListener('click', function () {
                     if (joinedEvents.has(event.id)) {
                         joinedEvents.delete(event.id);
                         this.textContent = 'Join Event';
@@ -426,7 +342,7 @@
         }
 
         filterButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 filterButtons.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 currentFilter = this.dataset.filter;
@@ -436,6 +352,30 @@
 
         // Initial render
         renderEvents();
+
+        // Sidebar Toggle Script
+        const sidebar = document.getElementById('sidebar');
+        const toggle = document.getElementById('sidebarToggle');
+        const body = document.body;
+
+        toggle.addEventListener('click', () => {
+            if (sidebar.classList.contains('active')) {
+                body.classList.remove('nav-open');
+            } else {
+                body.classList.add('nav-open');
+            }
+            sidebar.classList.toggle('active');
+            toggle.innerHTML = sidebar.classList.contains('active') ? '×' : '☰';
+        });
+
+        document.querySelector('.main-content').addEventListener('click', () => {
+            if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                body.classList.remove('nav-open');
+                toggle.innerHTML = '☰';
+            }
+        });
     </script>
 </body>
+
 </html>
