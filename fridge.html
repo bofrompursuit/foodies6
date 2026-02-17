@@ -12,10 +12,11 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            color: #333;
-            background: #f8f9fa;
+            font-family: 'Garamond', 'Georgia', serif;
+            color: #1a1a1a;
+            background: #fafaf9;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         /* Navigation */
@@ -180,6 +181,35 @@
             align-items: center;
         }
 
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-action {
+            background: #f5f5f4;
+            color: #1a1a1a;
+            border: 2px solid #e8e8e8;
+            padding: 1.25rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .btn-action:hover {
+            background: #fff;
+            border-color: #ff6b4a;
+            box-shadow: 0 4px 12px rgba(255, 107, 74, 0.2);
+        }
+
         .btn-generate {
             background: #ff6b4a;
             color: white;
@@ -197,6 +227,125 @@
             background: #ff5533;
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(255, 107, 74, 0.4);
+        }
+
+        #fileInput, #cameraInput {
+            display: none;
+        }
+
+        .scan-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scan-modal.active {
+            display: flex;
+        }
+
+        .scan-modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .scan-modal h3 {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .scan-preview {
+            width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            object-fit: contain;
+        }
+
+        .scan-loading {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #ff6b4a;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .extracted-items {
+            text-align: left;
+            background: #f5f5f4;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .extracted-items h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .extracted-items ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .extracted-items li {
+            padding: 0.5rem 0;
+            color: #666;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .extracted-items li:last-child {
+            border-bottom: none;
+        }
+
+        .scan-modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .scan-modal-buttons button {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-confirm {
+            background: #ff6b4a;
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            background: #ff5533;
+        }
+
+        .btn-cancel {
+            background: #e8e8e8;
+            color: #1a1a1a;
+        }
+
+        .btn-cancel:hover {
+            background: #d8d8d8;
         }
 
         .recipes-grid {
@@ -287,6 +436,15 @@
             .ingredients-grid {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .scan-modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -309,7 +467,21 @@
     <!-- Main Content -->
     <div class="container">
         <div class="fridge-section">
-            <h2>Select Your Ingredients</h2>
+            <h2>Quick Add Your Groceries</h2>
+            
+            <div class="action-buttons">
+                <button class="btn-action" id="uploadReceiptBtn">
+                    📸 Upload Receipt
+                </button>
+                <button class="btn-action" id="takePictureBtn">
+                    📷 Take Picture
+                </button>
+            </div>
+
+            <input type="file" id="fileInput" accept="image/*">
+            <input type="file" id="cameraInput" accept="image/*" capture="environment">
+
+            <h2 style="margin-top: 2rem;">Or Select Your Ingredients</h2>
             
             <div class="ingredients-grid" id="ingredientsGrid">
                 <!-- Ingredients will be populated here -->
@@ -326,6 +498,23 @@
         <div class="fridge-section">
             <div class="recipes-grid" id="recipesGrid">
                 <!-- Generated recipes will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scan Modal -->
+    <div class="scan-modal" id="scanModal">
+        <div class="scan-modal-content">
+            <h3 id="modalTitle">Processing Image...</h3>
+            <img id="scanPreview" class="scan-preview" style="display:none;">
+            <div id="scanLoading" class="scan-loading">🔍 Analyzing your image...</div>
+            <div id="extractedItems" class="extracted-items" style="display:none;">
+                <h4>Detected Ingredients:</h4>
+                <ul id="itemsList"></ul>
+            </div>
+            <div class="scan-modal-buttons">
+                <button class="btn-confirm" id="confirmBtn">Add All</button>
+                <button class="btn-cancel" id="cancelBtn">Cancel</button>
             </div>
         </div>
     </div>
@@ -397,6 +586,94 @@
         const selectedContainer = document.getElementById('selectedContainer');
         const selectedTags = document.getElementById('selectedTags');
         const selectedSet = new Set();
+
+        // Scan modal elements
+        const scanModal = document.getElementById('scanModal');
+        const uploadReceiptBtn = document.getElementById('uploadReceiptBtn');
+        const takePictureBtn = document.getElementById('takePictureBtn');
+        const fileInput = document.getElementById('fileInput');
+        const cameraInput = document.getElementById('cameraInput');
+        const scanPreview = document.getElementById('scanPreview');
+        const scanLoading = document.getElementById('scanLoading');
+        const extractedItems = document.getElementById('extractedItems');
+        const itemsList = document.getElementById('itemsList');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const modalTitle = document.getElementById('modalTitle');
+
+        // Button listeners for upload/camera
+        uploadReceiptBtn.addEventListener('click', () => fileInput.click());
+        takePictureBtn.addEventListener('click', () => cameraInput.click());
+
+        fileInput.addEventListener('change', (e) => processImage(e, 'receipt'));
+        cameraInput.addEventListener('change', (e) => processImage(e, 'camera'));
+
+        cancelBtn.addEventListener('click', closeScanModal);
+
+        function processImage(event, type) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                openScanModal(e.target.result, type);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function openScanModal(imageSrc, type) {
+            scanModal.classList.add('active');
+            scanPreview.src = imageSrc;
+            scanPreview.style.display = 'block';
+            modalTitle.textContent = type === 'receipt' ? 'Scanning Receipt...' : 'Processing Photo...';
+            
+            // Simulate scanning delay
+            setTimeout(() => {
+                simulateScan(type);
+            }, 1500);
+        }
+
+        function simulateScan(type) {
+            const mockReceipts = {
+                receipt: ['🥕 Carrots', '🧅 Onions', '🥔 Potatoes', '🥬 Spinach', '🍅 Tomatoes', '🧄 Garlic', '🥒 Cucumbers', '🫒 Olive Oil'],
+                camera: ['🍗 Chicken', '🧀 Cheese', '🍞 Bread', '🥬 Lettuce', '🍅 Tomato', '🥒 Pickles', '🧅 Onion', '🧈 Butter']
+            };
+
+            const detectedItems = mockReceipts[type] || mockReceipts.receipt;
+            
+            scanLoading.style.display = 'none';
+            extractedItems.style.display = 'block';
+            itemsList.innerHTML = '';
+            
+            detectedItems.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                itemsList.appendChild(li);
+            });
+
+            // Store items for confirmation
+            scanModal.detectedItems = detectedItems;
+        }
+
+        function closeScanModal() {
+            scanModal.classList.remove('active');
+            scanPreview.style.display = 'none';
+            scanLoading.style.display = 'block';
+            extractedItems.style.display = 'none';
+            itemsList.innerHTML = '';
+            fileInput.value = '';
+            cameraInput.value = '';
+        }
+
+        confirmBtn.addEventListener('click', () => {
+            if (scanModal.detectedItems) {
+                scanModal.detectedItems.forEach(item => {
+                    selectedSet.add(item);
+                });
+                renderSelectedTags();
+                closeScanModal();
+            }
+        });
 
         // Populate ingredients
         ingredients.forEach(ingredient => {
