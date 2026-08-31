@@ -3,8 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foodies For Foodies - Your Savory Story</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Few Foodies">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <title>Few Foodies - Your Savory Story</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -18,7 +25,7 @@
     <!-- Side Navigation -->
     <nav class="sidebar" id="sidebar">
         <div class="brand">
-            <h1>Foodies For Foodies</h1>
+            <h1>Few Foodies</h1>
             <p>Your Savory Story</p>
         </div>
         <ul class="nav-links">
@@ -53,63 +60,128 @@
 
         <!-- Features Grid -->
         <section class="features">
-            <div class="features-grid">
-                <a href="fridge.html" class="feature-card">
-                    <img src="assets/images/category_fridge_1771292645938.png" alt="Fridge" class="feature-bg">
-                    <div class="feature-overlay">
-                        <h3>What's in My Fridge?</h3>
-                        <p>AI-powered recipe generator</p>
-                    </div>
-                </a>
-                <a href="guides.html" class="feature-card">
-                    <img src="assets/images/category_cooking_1771292659599.png" alt="Cooking" class="feature-bg">
-                    <div class="feature-overlay">
-                        <h3>Cooking & Groups</h3>
-                        <p>Guides and collaborative spaces</p>
-                    </div>
-                </a>
-                <a href="polls.html" class="feature-card">
-                    <img src="assets/images/category_daily_bite_1771292671372.png" alt="Daily Bite" class="feature-bg">
-                    <div class="feature-overlay">
-                        <h3>The Daily Bite</h3>
-                        <p>Member-only polls & challenges</p>
-                    </div>
-                </a>
-                <a href="rewards.html" class="feature-card">
-                    <img src="assets/images/category_rewards_1771292682731.png" alt="Rewards" class="feature-bg">
-                    <div class="feature-overlay">
-                        <h3>Foodie Rewards</h3>
-                        <p>Exclusive local deals</p>
-                    </div>
-                </a>
-                <a href="podcast.html" class="feature-card">
-                    <img src="assets/images/category_podcast_1771292697064.png" alt="Podcast" class="feature-bg">
-                    <div class="feature-overlay">
-                        <h3>Podcast</h3>
-                        <p>Listen to foodie stories</p>
-                    </div>
-                </a>
-                <a href="events.html" class="feature-card">
-                    <img src="assets/images/category_meetups_1771292709470.png" alt="Events" class="feature-bg">
-                    <div class="feature-overlay">
-                        <h3>Meetups & Events</h3>
-                        <p>Join local gatherings</p>
-                    </div>
-                </a>
-                <a href="create.html" class="feature-card">
-                    <img src="assets/images/category_content_1771292721693.png" alt="Create" class="feature-bg">
-                    <div class="feature-overlay">
-                        <h3>Create Content</h3>
-                        <p>Share your culinary journey</p>
-                    </div>
-                </a>
-                <a href="travel.html" class="feature-card">
-                    <img src="assets/images/category_travel_1771292734775.png" alt="Travel" class="feature-bg">
-                    <div class="feature-overlay">
-                        <h3>Travel</h3>
-                        <p>Foodie destinations</p>
-                    </div>
-                </a>
+            <div class="marquee-row" data-direction="left">
+                <div class="marquee-track">
+                    <a href="fridge.html" class="feature-card">
+                        <img src="assets/images/category_fridge_1771292645938.png" alt="Fridge" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>What's in My Fridge?</h3>
+                            <p>AI-powered recipe generator</p>
+                        </div>
+                    </a>
+                    <a href="guides.html" class="feature-card">
+                        <img src="assets/images/category_cooking_1771292659599.png" alt="Cooking" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Cooking & Groups</h3>
+                            <p>Guides and collaborative spaces</p>
+                        </div>
+                    </a>
+                    <a href="polls.html" class="feature-card">
+                        <img src="assets/images/category_daily_bite_1771292671372.png" alt="Daily Bite" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>The Daily Bite</h3>
+                            <p>Member-only polls & challenges</p>
+                        </div>
+                    </a>
+                    <a href="rewards.html" class="feature-card">
+                        <img src="assets/images/category_rewards_1771292682731.png" alt="Rewards" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Foodie Rewards</h3>
+                            <p>Exclusive local deals</p>
+                        </div>
+                    </a>
+                    <!-- duplicate set for seamless loop -->
+                    <a href="fridge.html" class="feature-card" aria-hidden="true" tabindex="-1">
+                        <img src="assets/images/category_fridge_1771292645938.png" alt="" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>What's in My Fridge?</h3>
+                            <p>AI-powered recipe generator</p>
+                        </div>
+                    </a>
+                    <a href="guides.html" class="feature-card" aria-hidden="true" tabindex="-1">
+                        <img src="assets/images/category_cooking_1771292659599.png" alt="" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Cooking & Groups</h3>
+                            <p>Guides and collaborative spaces</p>
+                        </div>
+                    </a>
+                    <a href="polls.html" class="feature-card" aria-hidden="true" tabindex="-1">
+                        <img src="assets/images/category_daily_bite_1771292671372.png" alt="" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>The Daily Bite</h3>
+                            <p>Member-only polls & challenges</p>
+                        </div>
+                    </a>
+                    <a href="rewards.html" class="feature-card" aria-hidden="true" tabindex="-1">
+                        <img src="assets/images/category_rewards_1771292682731.png" alt="" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Foodie Rewards</h3>
+                            <p>Exclusive local deals</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="marquee-row" data-direction="right">
+                <div class="marquee-track">
+                    <a href="podcast.html" class="feature-card">
+                        <img src="assets/images/category_podcast_1771292697064.png" alt="Podcast" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Podcast</h3>
+                            <p>Listen to foodie stories</p>
+                        </div>
+                    </a>
+                    <a href="events.html" class="feature-card">
+                        <img src="assets/images/category_meetups_1771292709470.png" alt="Events" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Meetups & Events</h3>
+                            <p>Join local gatherings</p>
+                        </div>
+                    </a>
+                    <a href="create.html" class="feature-card">
+                        <img src="assets/images/category_content_1771292721693.png" alt="Create" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Create Content</h3>
+                            <p>Share your culinary journey</p>
+                        </div>
+                    </a>
+                    <a href="travel.html" class="feature-card">
+                        <img src="assets/images/category_travel_1771292734775.png" alt="Travel" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Travel</h3>
+                            <p>Foodie destinations</p>
+                        </div>
+                    </a>
+                    <!-- duplicate set for seamless loop -->
+                    <a href="podcast.html" class="feature-card" aria-hidden="true" tabindex="-1">
+                        <img src="assets/images/category_podcast_1771292697064.png" alt="" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Podcast</h3>
+                            <p>Listen to foodie stories</p>
+                        </div>
+                    </a>
+                    <a href="events.html" class="feature-card" aria-hidden="true" tabindex="-1">
+                        <img src="assets/images/category_meetups_1771292709470.png" alt="" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Meetups & Events</h3>
+                            <p>Join local gatherings</p>
+                        </div>
+                    </a>
+                    <a href="create.html" class="feature-card" aria-hidden="true" tabindex="-1">
+                        <img src="assets/images/category_content_1771292721693.png" alt="" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Create Content</h3>
+                            <p>Share your culinary journey</p>
+                        </div>
+                    </a>
+                    <a href="travel.html" class="feature-card" aria-hidden="true" tabindex="-1">
+                        <img src="assets/images/category_travel_1771292734775.png" alt="" class="feature-bg">
+                        <div class="feature-overlay">
+                            <h3>Travel</h3>
+                            <p>Foodie destinations</p>
+                        </div>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -147,6 +219,36 @@
             }
         });
     </script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>Few Foodies</h2>
+                <p>Your Savory Story</p>
+            </div>
+
+            <div class="footer-audio">
+                <p class="footer-label">Set the mood</p>
+                <audio controls loop preload="none" src="assets/audio/bossa-antigua.mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="footer-credit">&ldquo;Bossa Antigua&rdquo; by Kevin MacLeod (incompetech.com), licensed under
+                    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>.
+                </p>
+            </div>
+
+            <div class="footer-support">
+                <p class="footer-label">Support this project</p>
+                <img src="assets/qr/venmo-qr.png" alt="Venmo QR code for @beau_moldenhauer" class="footer-qr">
+                <p class="footer-venmo-text">Support by donating to this &amp; my future builds through Venmo:
+                    <a href="https://venmo.com/u/beau_moldenhauer" target="_blank" rel="noreferrer">@beau_moldenhauer</a>
+                </p>
+            </div>
+        </div>
+
+        <p class="footer-copy">&copy; 2026 Few Foodies. All rights reserved.</p>
+    </footer>
 </body>
 
 </html>

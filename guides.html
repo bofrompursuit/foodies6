@@ -3,8 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooking Guides & Groups - Foodies For Foodies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Few Foodies">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <title>Cooking Guides & Groups - Few Foodies</title>
     <link rel="stylesheet" href="style.css">
     <style>
         /* Page Specific Styles */
@@ -199,8 +206,8 @@
     <!-- Sidebar Navigation -->
     <nav class="sidebar" id="sidebar">
         <div class="brand">
-            <h1>Foodies</h1>
-            <p>For Foodies</p>
+            <h1>Few</h1>
+            <p>Foodies</p>
         </div>
         <ul class="nav-links">
             <li><a href="index.html">🏠 Home</a></li>
@@ -331,6 +338,36 @@
         renderGuides();
         renderGroups();
     </script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>Few Foodies</h2>
+                <p>Your Savory Story</p>
+            </div>
+
+            <div class="footer-audio">
+                <p class="footer-label">Set the mood</p>
+                <audio controls loop preload="none" src="assets/audio/bossa-antigua.mp3">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="footer-credit">&ldquo;Bossa Antigua&rdquo; by Kevin MacLeod (incompetech.com), licensed under
+                    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>.
+                </p>
+            </div>
+
+            <div class="footer-support">
+                <p class="footer-label">Support this project</p>
+                <img src="assets/qr/venmo-qr.png" alt="Venmo QR code for @beau_moldenhauer" class="footer-qr">
+                <p class="footer-venmo-text">Support by donating to this &amp; my future builds through Venmo:
+                    <a href="https://venmo.com/u/beau_moldenhauer" target="_blank" rel="noreferrer">@beau_moldenhauer</a>
+                </p>
+            </div>
+        </div>
+
+        <p class="footer-copy">&copy; 2026 Few Foodies. All rights reserved.</p>
+    </footer>
 </body>
 
 </html>

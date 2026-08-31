@@ -1,10 +1,10 @@
-# Foodies For Foodies
+# Few Foodies
 
-A modern landing page for "Foodies For Foodies" - a vibrant community platform for food enthusiasts.
+A modern landing page for "Few Foodies" - a vibrant community platform for food enthusiasts.
 
 ## Project Overview
 
-This is a responsive single-page website showcasing the Foodies For Foodies platform with features including:
+This is a responsive single-page website showcasing the Few Foodies platform with features including:
 
 - **Navigation Bar** - Links to key sections and sign-in button
 - **Hero Section** - Eye-catching introduction with featured category
