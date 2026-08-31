@@ -33,6 +33,7 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
@@ -101,6 +102,21 @@ body {
 .brand {
     margin-bottom: 3rem;
     text-align: center;
+}
+
+.brand img,
+.logo-link img {
+    max-width: 170px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+.logo-link img {
+    max-width: 130px;
+    margin: 0;
 }
 
 .brand h1 {
